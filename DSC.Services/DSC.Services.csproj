@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="12.0.1" />
+		<PackageReference Include="MailKit" Version="4.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.11" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="IServices\" />
+		<Folder Include="Setting\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\DSC.Models\DSC.Models.csproj" />
+	</ItemGroup>
+
+</Project>
