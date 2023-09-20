@@ -7,10 +7,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="ُEnroll.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Folder Include="DTOs\" />
-		<Folder Include="Enums\" />
 		<Folder Include="DTOs\" />
-		<Folder Include="Enums\" />
 	</ItemGroup>
 
 	<ItemGroup>

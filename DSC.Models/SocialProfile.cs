@@ -1,7 +1,7 @@
 ﻿namespace DSC.Models
 {
-	public class SocialProfiles
-	{
+    public class SocialProfile
+    {
         public int Id { get; set; }
         public string Type { get; set; }
         public string IconUrl { get; set; }
