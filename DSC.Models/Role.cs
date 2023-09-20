@@ -1,13 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DSC.Models
+﻿namespace DSC.Models
 {
-    public class Role : IdentityRole<int>
+	public class Role : IdentityRole<int>
     {
         public ICollection<UserRole> UsersRole { get; set; }
     }
