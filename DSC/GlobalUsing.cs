@@ -1,1 +1,11 @@
-﻿
+﻿global using DSC.DataAccess;
+global using Microsoft.EntityFrameworkCore;
+global using DSC.DataAccess.Repository.IRepository;
+global using DSC.DataAccess.Repository;
+global using DSC.Models;
+global using Microsoft.AspNetCore.Identity;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.IdentityModel.Tokens;
+global using System.Text;
+global using DSC.Services.Setting;
