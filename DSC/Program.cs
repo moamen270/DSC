@@ -1,4 +1,8 @@
+using DSC.Extentions;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddApplicationService(builder.Configuration);
+builder.Services.AddIdentityService(builder.Configuration);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -17,7 +21,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
