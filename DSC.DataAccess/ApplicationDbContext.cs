@@ -32,4 +32,20 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, int,
             .HasForeignKey(ur => ur.RoleId)
             .IsRequired();
     }
+
+    public DbSet<Apply> Applies { get; set; }
+    public DbSet<Article> Articles { get; set; }
+    public DbSet<Category> Categories { get; set; }
+    public DbSet<Collection> Collections { get; set; }
+    public DbSet<Course> Courses { get; set; }
+    public DbSet<CourseInfo> CourseInfos { get; set; }
+    public DbSet<Enroll> Enrolls { get; set; }
+    public DbSet<Family> Families { get; set; }
+    public DbSet<Founder> Founders { get; set; }
+    public DbSet<Media> Media { get; set; }
+    public DbSet<Service> Services { get; set; }
+    public DbSet<SocialProfile> SocialProfiles { get; set; }
+    public DbSet<Student> Students { get; set; }
+    public DbSet<Topic> Topics { get; set; }
+    public DbSet<Volunteer> Volunteers { get; set; }
 }
