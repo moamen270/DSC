@@ -28,7 +28,7 @@ namespace DSC.Controllers
 				await _unitOfWork.Save();
 				return RedirectToAction("Index");
 			}
-			return View(category);
+			return RedirectToAction("Index","Error");
 		}
 
 		[HttpPost("Edit")]
@@ -40,8 +40,8 @@ namespace DSC.Controllers
 				await _unitOfWork.Save();
 				return RedirectToAction("Index");
 			}
-			return View(category);
-		}
+            return RedirectToAction("Index", "Error");
+        }
 
         [HttpPost("Delete")]
         public async Task<IActionResult> Delete(Category category)
@@ -52,7 +52,7 @@ namespace DSC.Controllers
 				await _unitOfWork.Save();
 				return RedirectToAction("Index");
 			}
-			return View(category);
-		}
+            return RedirectToAction("Index", "Error");
+        }
 	}
 }
