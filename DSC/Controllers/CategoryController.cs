@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DSC.Models.DTOs;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DSC.Controllers
 {
@@ -15,15 +16,9 @@ namespace DSC.Controllers
 		public async Task<IActionResult> Index()
 		{
 			var categories =await _unitOfWork.Category.GetAllAsync();
-			return View(categories);
+			return View(new CategoryDto {Categories=categories});
 		}
 
-
-        [HttpGet("Create")]
-        public IActionResult Create()
-		{
-			return View(new Category());
-		}
 		[HttpPost("Create")]
 		public async Task<IActionResult> Create(Category category)
 		{
@@ -35,17 +30,8 @@ namespace DSC.Controllers
 			}
 			return View(category);
 		}
-		[HttpGet("Edit/{id}")]
-		public async Task<IActionResult> Edit(int id)
-		{
-			var category = await _unitOfWork.Category.FirstOrDefaultAsync(c => c.Id == id);
-			if (category == null)
-			{
-				return NotFound();
-			}
-			return View(category);
-		}
-		[HttpPost("Edit/{id}")]
+
+		[HttpPost("Edit")]
 		public async Task<IActionResult> Edit(Category category)
 		{
 			if (ModelState.IsValid)
@@ -56,17 +42,8 @@ namespace DSC.Controllers
 			}
 			return View(category);
 		}
-        [HttpGet("Delete/{id}")]
-        public async Task<IActionResult> Delete(int id)
-		{
-			var category = await _unitOfWork.Category.FirstOrDefaultAsync(c => c.Id == id);
-			if (category == null)
-			{
-				return NotFound();
-			}
-			return View(category);
-		}
-        [HttpPost("Delete/{id}")]
+
+        [HttpPost("Delete")]
         public async Task<IActionResult> Delete(Category category)
 		{
 			if (ModelState.IsValid)
