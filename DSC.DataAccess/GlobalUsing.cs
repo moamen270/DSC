@@ -6,4 +6,3 @@ global using Microsoft.AspNetCore.Identity;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 global using DSC.DataAccess;
 global using DSC.DataAccess.Repository;
-global using RoutelaAPI.DataAccess.Repository.IRepository;
