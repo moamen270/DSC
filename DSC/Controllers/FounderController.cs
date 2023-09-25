@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DSC.Models.DTOs;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DSC.Controllers
 {
@@ -11,17 +12,14 @@ namespace DSC.Controllers
 			_unitOfWork = unitOfWork;
 		}
 
-
-        public IActionResult Index()
+		[HttpGet]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var founders = await _unitOfWork.Founder.GetAllAsync();
+            return View(new FounderDto { Founders = founders });
         }
 
-		[HttpGet]
-		public IActionResult Create()
-		{
-			return View();
-		}
+
 		[HttpPost]
 		public async Task<IActionResult> Create(Founder founder)
 		{
@@ -33,16 +31,7 @@ namespace DSC.Controllers
 			}
 			return View(founder);
 		}
-		[HttpGet]
-		public async Task<IActionResult> Edit(int id)
-		{
-			var founder = await _unitOfWork.Founder.FirstOrDefaultAsync(c => c.Id == id);
-			if (founder == null)
-			{
-				return NotFound();
-			}
-			return View(founder);
-		}
+
 		[HttpPost]
 		public async Task<IActionResult> Edit(Founder founder)
 		{
@@ -54,16 +43,7 @@ namespace DSC.Controllers
 			}
 			return View(founder);
 		}
-		[HttpGet]
-		public async Task<IActionResult> Delete(int id)
-		{
-			var founder = await _unitOfWork.Founder.FirstOrDefaultAsync(c => c.Id == id);
-			if (founder == null)
-			{
-				return NotFound();
-			}
-			return View(founder);
-		}
+
 		[HttpPost]
 		public async Task<IActionResult> Delete(Founder founder)
 		{
