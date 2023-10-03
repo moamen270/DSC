@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DSC.Models.DTOs;
+using DSC.Models.Enums;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DSC.Controllers
 {
@@ -14,32 +17,37 @@ namespace DSC.Controllers
 
 		public async Task<IActionResult> Index()
 		{
-			var articles = await _unitOfWork.Article.GetAllAsync(includeProperties: c => c.Category);
-			return View(articles);
+  /*          ViewBag.Category = await _unitOfWork.Category.GetAllAsync();*/
+            var categories = await _unitOfWork.Category.GetAllAsync();
+			var articles = await _unitOfWork.Article.GetAllAsync();
+			return View(new ArticleDto { Articles = articles, Categories = categories });
 		}
-		[HttpGet]
-		public IActionResult Create()
-		{
-			return View(new Article());
-		}
-		[HttpPost]
-		public async Task<IActionResult> Create(Article article,int categoryId)
-		{
-			if (ModelState.IsValid)
-			{
-				article.Category = await _unitOfWork.Category.FirstOrDefaultAsync(c=>c.Id==categoryId);
-				await _unitOfWork.Article.AddAsync(article);
-				await _unitOfWork.Save();
-				return RedirectToAction("Index");
-			}
-			return View(article);
-		}
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var article = await _unitOfWork.Article.FirstOrDefaultAsync(a => a.Id == id,includeProperties:c=>c.Category);
 
-		[HttpGet]
-		public IActionResult Edit()
+            if (article == null)
+				return NotFound();
+
+            return View(article);
+        }
+
+
+
+        [HttpPost]
+		public async Task<IActionResult> Create(Article article)
 		{
-			return View(new Article());
-		}
+            if (ModelState.IsValid)
+            {
+                await _unitOfWork.Article.AddAsync(article);
+                await _unitOfWork.Save();
+                return RedirectToAction("Index"); 
+            }
+            return View(article);
+
+        }
+
 		[HttpPost]
 		public async Task<IActionResult> Edit(Article article)
 		{
@@ -48,16 +56,6 @@ namespace DSC.Controllers
 				_unitOfWork.Article.Update(article);
 				await _unitOfWork.Save();
 				return RedirectToAction("Index");
-			}
-			return View(article);
-		}
-		[HttpGet]
-		public async Task<IActionResult> Delete(int id)
-		{
-			var article = await _unitOfWork.Article.FirstOrDefaultAsync(c => c.Id == id);
-			if (article == null)
-			{
-				return NotFound();
 			}
 			return View(article);
 		}
