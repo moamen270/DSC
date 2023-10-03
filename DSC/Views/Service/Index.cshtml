@@ -1,0 +1,165 @@
+﻿@model DSC.Models.DTOs.ServiceDto
+
+<style>
+    .table-wrap {
+        margin-bottom: 600px; /* Add space between the table and footer */
+    }
+
+    .table-actions {
+        text-align: right; /* Align the action buttons to the right */
+    }
+</style>
+
+
+
+<div class="modal fade mt-5" id="addServiceModal" tabindex="-1" role="dialog" aria-labelledby="addServiceModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addServiceModalLabel">Add New Service</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create">
+                    <div class="form-group">
+                        <label asp-for="Name">Service Name:</label>
+                        <input asp-for="Name" type="text" required class="form-control" id="ServiceName" name="Name" placeholder="Enter Service name">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ImgUrl">ImgUrl:</label>
+                        <input asp-for="ImgUrl" type="text" required class="form-control" id="ServiceName" name="ImgUrl" placeholder="Enter Service imgUrl">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description">Description:</label>
+                        <textarea asp-for="Description" required class="form-control" id="ServiceName" name="Description" placeholder="Enter Service Description"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" id="addServiceButton" />
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade mt-5" id="EditServiceModal" tabindex="-1" role="dialog" aria-labelledby="EditServiceModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="EditServiceModalLabel">Edit Service</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Edit" method="post">
+                    <input asp-for="Id" id="editId" value="" hidden />
+                    <div class="form-group">
+                        <label asp-for="Name">Service Name:</label>
+                        <input asp-for="Name" required type="text" class="form-control" id="ServiceName" name="Name" placeholder="Enter Service name">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ImgUrl">ImgUrl:</label>
+                        <input asp-for="ImgUrl" required class="form-control" id="ServiceImgUrl" name="ImgUrl" placeholder="Enter Service ImgUrl" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description">Description:</label>
+                        <textarea asp-for="Description" required class="form-control" id="ServiceDescription" name="Description" placeholder="Enter Service Description"></textarea>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" id="editServiceButton" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade mt-5" id="DeleteServiceModal" tabindex="-1" role="dialog" aria-labelledby="DeleteServiceModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="DeleteServiceModalLabel">Delete Service</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Delete">
+                    <input asp-for="Id" id="deleteId" hidden />
+                    <div class="form-group">
+                        <p>Are you Sure you want to Delete This Service?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" id="DeleteServiceButton" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<section class="ftco-section mt-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section">Services</h2>
+                <a class="btn btn-warning mt-3 p-3 text-white" data-toggle="modal" data-target="#addServiceModal">Create New Service</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="table-wrap">
+                    <table class="table table-hover">
+                        <thead class="thead-primary">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>ImgUrl</th>
+                                <th class="table-actions ">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var service in Model.Services)
+                            {
+                                <tr>
+                                    <td>@service.Id</td>
+                                    <td>@service.Name</td>
+                                    <td><img src="@service.ImgUrl" class="rounded-circle border" width="60" height="50" /></td>
+                                    <td class="table-actions">
+                                        <a class="btn btn-primary text-white" data-toggle="modal" onclick="setIdEdit(@service.Id)" data-target="#EditServiceModal">Edit</a>
+                                        <a class="btn btn-danger text-white" data-toggle="modal" onclick="setIdDelete(@service.Id)" data-target="#DeleteServiceModal">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    function setIdEdit(id) {
+        document.getElementById("editId").value = id;
+    }
+    function setIdDelete(id) {
+        document.getElementById("deleteId").value = id;
+    }
+</script>
