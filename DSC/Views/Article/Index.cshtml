@@ -1,0 +1,207 @@
+﻿@model DSC.Models.DTOs.ArticleDto
+
+<style>
+    .table-wrap {
+        margin-bottom: 600px; /* Add space between the table and footer */
+    }
+
+    .table-actions {
+        text-align: right; /* Align the action buttons to the right */
+    }
+</style>
+<!-- Add this code inside your section -->
+
+
+<div class="modal fade mt-5" id="addArticleModal" tabindex="-1" role="dialog" aria-labelledby="addArticleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addArticleModalLabel">Add New Article</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create">
+                    <div class="form-group">
+                        <label asp-for="Tittle">Article Tittle:</label>
+                        <input asp-for="Tittle" type="text" required class="form-control" id="articleTittle" name="Tittle" placeholder="Enter article name">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ImgUrl">ImgUrl:</label>
+                        <input asp-for="ImgUrl" type="text" required class="form-control" id="articleName" name="ImgUrl" placeholder="Enter article imgUrl">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description">Description:</label>
+                        <textarea asp-for="Description" required class="form-control" id="articleName" name="Description" placeholder="Enter article Description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ArticleType">Article Type:</label>
+                        <select asp-for="ArticleType" id="articleType" class="form-control">
+                            <option value="1">Article</option>
+                            <option value="2">News</option>
+                            <option value="3">Ads</option>
+                        </select>
+                    </div>
+@*                     <div class="form-group">
+                        <label asp-for="CategoryId">Category:</label>
+                        <select class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.Category, "Id", "Name"))">
+                            <option value="4">Select a category</option>
+                        </select>
+                    </div> *@
+                    <div class="form-group">
+                        <label asp-for="CategoryId">Category:</label>
+                        <select asp-for="CategoryId" id="CategoryId" class="form-control">
+                            @foreach (var item in Model.Categories)
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" id="addFounderButton" />
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade mt-5" id="EditArticleModal" tabindex="-1" role="dialog" aria-labelledby="EditArticleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="EditArticleModal">Edit Article</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <form asp-action="Edit" method="post">
+                <input asp-for="Id" id="editId" value="" hidden />
+                <div class="form-group">
+                    <label asp-for="Tittle">Tittle:</label>
+                    <input asp-for="Tittle" required type="text" class="form-control" id="articleName" name="Tittle"  placeholder="Enter Tittle name">
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImgUrl">ImgUrl:</label>
+                    <input asp-for="ImgUrl" required class="form-control" id="articleImgUrl" name="ImgUrl" placeholder="Enter article ImgUrl" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description">Description:</label>
+                        <textarea asp-for="Description" required class="form-control" id="articleDescription" name="Description" placeholder="Enter article Description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ArticleType">Article Type:</label>
+                    <select asp-for="ArticleType" id="articleType" class="form-control">
+                        <option value="1">Article</option>
+                        <option value="2">News</option>
+                        <option value="3">Ads</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CategoryId">Category:</label>
+                    <select asp-for="CategoryId" id="CategoryId" class="form-control">
+                        @foreach (var item in Model.Categories)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+
+                    </select>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" id="editArticleButton" />
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade mt-5" id="DeleteArticleModal" tabindex="-1" role="dialog" aria-labelledby="DeleteArticleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="DeleteArticleModalLabel">Delete Article</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Delete">
+                    <input asp-for="Id" id="deleteId" hidden />
+                    <div class="form-group">
+                        <p>Are you Sure you want to Delete This article?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" id="DeleteArticleButton" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<section class="ftco-section mt-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section">Articles</h2>
+                <a class="btn btn-warning mt-3 p-3 text-white" data-toggle="modal" data-target="#addArticleModal">Create New Article</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="table-wrap">
+                    <table class="table table-hover">
+                        <thead class="thead-primary">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Created At</th>
+                                <th class="table-actions ">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var article in Model.Articles)
+                            {
+                                <tr>
+                                    <td>@article.Id</td>
+                                    <td>@article.Tittle</td>
+                                    <td>@article.CDate</td>
+                                    <td class="table-actions">
+                                        <a class="btn btn-primary text-white" data-toggle="modal" onclick="setIdEdit(@article.Id)" data-target="#EditArticleModal">Edit</a>
+                                        <a class="btn btn-danger text-white" data-toggle="modal" onclick="setIdDelete(@article.Id)" data-target="#DeleteArticleModal">Delete</a>
+                                        <a class="btn btn-warning text-white" asp-action="Details" asp-route-id="@article.Id">Details</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    function setIdEdit(id) {
+        document.getElementById("editId").value = id;
+    }
+    function setIdDelete(id) {
+        document.getElementById("deleteId").value = id;
+    }
+
+</script>
