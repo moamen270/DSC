@@ -103,7 +103,7 @@ namespace DSC.Controllers
 		public async Task<IActionResult> Profile()
 		{
 			var user = await _userManager.GetUserAsync(User);
-			if (user == null) return RedirectToAction("404", "Error");
+			if (user == null) return RedirectToAction("Index", "Error");
 
 			var dto = new UserProfileDto()
 			{
