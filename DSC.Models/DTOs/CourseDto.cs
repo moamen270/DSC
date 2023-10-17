@@ -7,6 +7,7 @@ namespace DSC.Models.DTOs
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public string ImageUrl { get; set; }
         public int TopicId { get; set; }
 
         public IEnumerable<Topic> Topics { get; set; }
