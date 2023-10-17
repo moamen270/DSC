@@ -15,7 +15,7 @@
                     <input type="hidden" value="@Model.Course.Id" asp-for="CourseId" />
                     <div class="form-group">
                         <label asp-for="InstructorName">Instructor Name:</label>
-                        <input asp-for="InstructorName" type="text" required class="form-control" id="instructorName" name="Tittle" placeholder="Enter instructor name">
+                        <input asp-for="InstructorName" type="text" required class="form-control" id="instructorName" name="instructorName" placeholder="Enter instructor name">
                     </div>
                     <div class="form-group">
                         <label asp-for="StartDate">Start Date:</label>
@@ -53,10 +53,11 @@
             </div>
             <div class="modal-body">
                 <form asp-controller="Course" asp-action="EditInfo" method="post">
+                    <input type="hidden" value="@Model.Course.Id" asp-for="CourseId" />
                     <input asp-for="Id" id="editId" value="" hidden />
                     <div class="form-group">
                         <label asp-for="InstructorName">Instructor Name:</label>
-                        <input asp-for="InstructorName" type="text" required class="form-control" id="instructorName" name="Tittle" placeholder="Enter instructor name">
+                        <input asp-for="InstructorName" type="text" required class="form-control" id="instructorName" name="instructorName" placeholder="Enter instructor name">
                     </div>
                     <div class="form-group">
                         <label asp-for="StartDate">Start Date:</label>
@@ -97,6 +98,8 @@
             </div>
             <div class="modal-body">
                 <form asp-controller="Course" asp-action="DeleteInfo">
+                    <input type="hidden" value="@Model.Course.Id" asp-for="CourseId" />
+
                     <input asp-for="Id" id="deleteId" hidden />
                     <div class="form-group">
                         <p>Are you Sure you want to Delete This Course?</p>
@@ -117,12 +120,15 @@
 
 <!-- Start page content -->
 <div class="container mt-4 mt-lg-5">
+
+
+
     <div class="owl-carousel owl-theme default-carousel  default-carousel-nav">
-      @*   <div>
+        <div>
             <a asp-action="Details" asp-route-id="@Model.Id">
-                <img src="@Model.ImgUrl" alt="" class="w-100">
+                <img src="@Model.Course.ImageUrl" alt="" class="w-100">
             </a>
-        </div> *@
+        </div>
 
     </div>
     <div class="row mb-4 my-lg-5">
@@ -152,48 +158,41 @@
         </div>
 
     </div>
-   
+
+
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="table-wrap">
+                        <table class="table table-hover">
+                            <thead class="thead-primary">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Instructor Name</th>
+                                    <th class="table-actions ">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var courseInfo in Model.CourseInfos)
+                                {
+                                    <tr>
+                                        <td>@courseInfo.Id</td>
+                                        <td>@courseInfo.InstructorName</td>
+                                        <td class="table-actions">
+                                            <a class="btn btn-primary text-white" data-toggle="modal" onclick="setIdEdit(@courseInfo.Id)" data-target="#EditCourseInfoModal">Edit</a>
+                                            <a class="btn btn-danger text-white" data-toggle="modal" onclick="setIdDelete(@courseInfo.Id)" data-target="#DeleteCourseInfoModal">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
 </div>
 
-<section class="ftco-section mt-4">
-    <div class="container">
-
-        <div class="row">
-            <div class="col-md-12">
-
-                <div class="table-wrap">
-                    <table class="table table-hover">
-                        <thead class="thead-primary">
-                            <tr>
-                                <th>ID</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th>DeadLine Date</th>
-                                <th class="table-actions ">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var courseInfo in Model.CourseInfos)
-                            {
-                                <tr>
-                                    <td>@courseInfo.Id</td>
-                                    <td>@courseInfo.StartDate</td>
-                                    <td>@courseInfo.EndDate</td>
-                                    <td>@courseInfo.DeadLine</td>
-                                    <td class="table-actions">
-                                        <a class="btn btn-primary text-white" data-toggle="modal" onclick="setIdEdit(@courseInfo.Id)" data-target="#EditCourseInfoModal">Edit</a>
-                                        <a class="btn btn-danger text-white" data-toggle="modal" onclick="setIdDelete(@courseInfo.Id)" data-target="#DeleteCourseInfoModal">Delete</a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 
 <script>

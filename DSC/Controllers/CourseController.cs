@@ -102,7 +102,7 @@ namespace DSC.Controllers
         {
             if (ModelState.IsValid)
             {
-                int id = courseInfo.CourseId;
+                var id = courseInfo.CourseId;
                 _unitOfWork.CourseInfo.Delete(courseInfo);
                 await _unitOfWork.Save();
                 return RedirectToAction("Details", "Course", new { CourseId = id });

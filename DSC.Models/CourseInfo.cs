@@ -10,7 +10,7 @@ namespace DSC.Models
     {
         public int Id { get; set; }
         public string InstructorName { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
         public DateTime StartDate { get; set; }
         public DateTime DeadLine { get; set; }
         public DateTime EndDate { get; set; }
