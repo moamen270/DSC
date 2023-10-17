@@ -30,7 +30,7 @@
     <!-- FANCY BOX -->
     <link href="~/assets/vendor/fancybox-master/jquery.fancybox.min.css" rel="stylesheet">
     <!-- RANGE SLIDER -->
-    <link href="assets/vendor/range-slider/range-slider.css" rel="stylesheet">
+    <link href="~/assets/vendor/range-slider/range-slider.css" rel="stylesheet">
     <!-- OWL CAROUSEL  -->
     <link href="~/assets/vendor/owlcarousel/owl.carousel.min.css" rel="stylesheet">
     <link href="~/assets/vendor/owlcarousel/owl.theme.default.min.css" rel="stylesheet">
@@ -72,7 +72,7 @@
                 <div class="col-12 col-md-10 col-lg-9 pr-md-0">
                     <nav class="navbar navbar-expand-md btco-hover-menu py-lg-2">
 
-                        <a class="navbar-brand pl-0" asp-controller="Home" asp-action="Index"><img src="~/assets/custom/images/fables-logo.png" alt="Fables Template" class="fables-logo"></a>
+                        <a class="navbar-brand pl-0" asp-controller="Home" asp-action="Index"><img src="~/assets/custom/images/DSC_11.png" width="150px" alt="Fables Template" class="fables-logo"></a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#fablesNavDropdown" aria-controls="fablesNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="fables-iconmenu-icon text-white font-16"></span>
                         </button>
@@ -147,8 +147,12 @@
 
                                 </a>
                             }
-                           @*  <a asp-controller="Account" asp-action="Profile" class="fables-third-text-color fables-second-hover-color font-13 top-header-link px-3 px-md-2 px-lg-4 max-line-height"><span class="fables-iconuser"></span></a>
- *@
+                            else
+                            {
+                                
+                            
+                            <a asp-controller="Account" asp-action="Profile" class="fables-third-text-color fables-second-hover-color font-13 top-header-link px-3 px-md-2 px-lg-4 max-line-height"><span class="fables-iconuser"></span></a>
+                            }
                         }
                         else
                         {

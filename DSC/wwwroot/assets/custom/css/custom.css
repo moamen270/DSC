@@ -356,7 +356,7 @@ body{
     transition: all ease-in-out .3s;
 }
 .fables-testimonial {
-    background-image: url(../images/big-overlay.jpg);  
+    background-image: url(../images/DSC_1.jpg);  
 }
 .fables-testimonial-no-background{
     background: none;
@@ -2320,7 +2320,7 @@ body{
     background-color: #E54D42;
 }
 .half-width-testimonial{
-    background-image: url(../images/index-testimonial.jpg); 
+    background-image: url(../images/DSC_1.jpg); 
     margin-bottom: 11% !important;
 }
 .half-width-testimonial .owl-item{
@@ -2493,7 +2493,7 @@ body{
     top: 30px;
 }
 .testimonial-index-bg{
-    background-image: url("../images/testimonial-index-bg.jpg");
+    background-image: url("../images/DSC_3.JPG");
 }
 .choose-img-border-after::after {
     content: "";
