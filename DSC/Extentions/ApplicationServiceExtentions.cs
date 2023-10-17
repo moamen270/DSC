@@ -1,4 +1,7 @@
-﻿namespace DSC.Extentions
+﻿using DSC.Services;
+using DSC.Services.IServices;
+
+namespace DSC.Extentions
 {
     public static class ApplicationServiceExtentions
     {
@@ -6,8 +9,9 @@
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                  options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.Configure<MailSetting>(configuration.GetSection("MailSettingsGmail"));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IEmailService, EmailService>();
             return services;
         }
     }
