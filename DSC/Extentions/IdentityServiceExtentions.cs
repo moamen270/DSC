@@ -2,37 +2,26 @@
 
 namespace DSC.Extentions
 {
-    public static class IdentityServiceExtentions
-    {
-        public static IServiceCollection AddIdentityService(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddIdentityCore<User>(opt =>
-            {
-                opt.Password.RequireNonAlphanumeric = false;
-            })
-             .AddRoles<Role>()
-             .AddRoleManager<RoleManager<Role>>()
-             .AddSignInManager<SignInManager<User>>()
-             .AddRoleValidator<RoleValidator<Role>>()
-             .AddEntityFrameworkStores<ApplicationDbContext>();
+	public static class IdentityServiceExtentions
+	{
+		public static IServiceCollection AddIdentityService(this IServiceCollection services, IConfiguration configuration)
+		{
+			services.AddIdentityCore<User>(option =>
+			{
+				option.Password.RequireNonAlphanumeric = false;
+				option.SignIn.RequireConfirmedEmail = false;
+				option.SignIn.RequireConfirmedPhoneNumber = false;
+			})
+			 .AddRoles<Role>()
+			 .AddRoleManager<RoleManager<Role>>()
+			 .AddSignInManager<SignInManager<User>>()
+			 .AddRoleValidator<RoleValidator<Role>>()
+			 .AddEntityFrameworkStores<ApplicationDbContext>()
+			 .AddDefaultTokenProviders();
 
-            services.Configure<JWT>(configuration.GetSection("JWT"));
-            services.AddAuthentication(option =>
-            {
-                option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Key"])),
-                    };
-                });
-            return services;
-        }
-    }
+			services.AddAuthentication().AddCookie("Identity.Application");
+
+			return services;
+		}
+	}
 }

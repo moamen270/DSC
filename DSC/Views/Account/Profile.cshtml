@@ -1,0 +1,37 @@
+﻿@model DSC.Models.DTOs.UserProfileDto
+
+<!-- Start Breadcrumbs -->
+<div class="fables-light-background-color">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="fables-breadcrumb breadcrumb px-0 py-3">
+                <li class="breadcrumb-item"><a href="#" class="fables-second-text-color">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Register</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- /End Breadcrumbs -->
+<!-- Start page content -->
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <img src="https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png" class="img-fluid">
+        </div>
+
+        <div class="col-md-8">
+            <h1>@Model.FullName</h1>
+
+            <p><strong>Phone:</strong> @Model.PhoneNumber</p>
+            <p><strong>Mobile:</strong> @Model.MobileNumber</p>
+            <p><strong>Email:</strong> @Model.Email</p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- /End page content -->
