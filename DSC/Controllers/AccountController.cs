@@ -111,9 +111,27 @@ namespace DSC.Controllers
 				FullName = user.Name,
 				MobileNumber = user.Mobile,
 				PhoneNumber = user.PhoneNumber,
+				ImgUrl = user.ImgaeUrl
 			};
 
 			return View(dto);
 		}
-	}
+
+        [HttpPost]
+        public async Task<IActionResult> ProfileEdit(UserProfileDto dto)
+        {
+			var user = await _userManager.GetUserAsync(User);
+            if (user == null) return RedirectToAction("404", "Error");
+
+            user.Name = dto.FullName;
+            user.Mobile = dto.MobileNumber;
+            user.PhoneNumber = dto.PhoneNumber;
+            user.ImgaeUrl = dto.ImgUrl;
+
+            await _userManager.UpdateAsync(user);
+
+            return RedirectToAction("Profile", "Account");
+
+        }
+    }
 }
