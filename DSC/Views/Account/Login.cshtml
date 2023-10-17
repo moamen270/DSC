@@ -12,7 +12,7 @@
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="fables-breadcrumb breadcrumb px-0 py-3">
-                <li class="breadcrumb-item"><a href="#" class="fables-second-text-color">Home</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="fables-second-text-color">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Signin</li>
             </ol>
         </nav>
@@ -24,7 +24,7 @@
     <div class="row my-4 my-lg-5">
         <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 text-center">
             <img src="~/assets/custom/images/signin-logo.png" alt="signin" class="img-fluid">
-            <p class="font-20 semi-font fables-main-text-color mt-4 mb-4 mb-lg-5">Sign In Fables</p>
+            <p class="font-20 semi-font fables-main-text-color mt-4 mb-4 mb-lg-5">Sign In </p>
             <form asp-action="Login" method="post">
                 <div class="form-group">
                     <div class="input-icon">
@@ -44,7 +44,7 @@
                 </div>
                 <button type="submit" class="btn btn-block rounded-0 white-color fables-main-hover-background-color fables-second-background-color font-16 semi-font py-3">Sign in</button>
                 <a href="#" class="fables-forth-text-color font-16 fables-second-hover-color underline mt-3 mb-4 m-lg-5 d-block">Forgot Password ?</a>
-                <p class="fables-forth-text-color">Dont have an account ?  <a href="register.html" class="font-16 semi-font fables-second-text-color underline fables-main-hover-color ml-2">Register</a></p>
+                <p class="fables-forth-text-color">Dont have an account ?  <a asp-controller="Account" asp-action="Register" class="font-16 semi-font fables-second-text-color underline fables-main-hover-color ml-2">Register</a></p>
             </form>
         </div>
     </div>
