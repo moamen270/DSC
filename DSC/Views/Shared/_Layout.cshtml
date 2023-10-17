@@ -136,8 +136,15 @@
                         </a>
                         @if (SignInManager.IsSignedIn(User))
                         {
-                            <a asp-controller="Account" asp-action="Profile" class="fables-third-text-color fables-second-hover-color font-13 top-header-link px-3 px-md-2 px-lg-4 max-line-height"><span class="fables-iconuser"></span></a>
+                            if (@UserManager.GetUserAsync(User).Result.ImgaeUrl != null)
+                            {
+                                <a asp-controller="Account" asp-action="Profile" class="fables-third-text-color fables-second-hover-color font-13 top-header-link px-3 px-md-2 px-lg-4 max-line-height">
+                                    <img class="rounded-circle" width="40px" height="40px" src="@UserManager.GetUserAsync(User).Result.ImgaeUrl" />
 
+                                </a>
+                            }
+                           @*  <a asp-controller="Account" asp-action="Profile" class="fables-third-text-color fables-second-hover-color font-13 top-header-link px-3 px-md-2 px-lg-4 max-line-height"><span class="fables-iconuser"></span></a>
+ *@
                         }
                         else
                         {
