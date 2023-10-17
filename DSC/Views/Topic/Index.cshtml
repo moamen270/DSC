@@ -1,0 +1,146 @@
+﻿@model DSC.Models.DTOs.TopicDto
+
+<style>
+    .table-wrap {
+        margin-bottom:600px; /* Add space between the table and footer */
+    }
+
+    .table-actions {
+        text-align: right; /* Align the action buttons to the right */
+    }
+</style>
+<!-- Add this code inside your section -->
+
+
+<div class="modal fade mt-5" id="addTopicModal" tabindex="-1" role="dialog" aria-labelledby="addTopicModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addTopicModalLabel">Add New Topic</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Topic" asp-action="Create" >
+                    <div class="form-group">
+                        <label asp-for="Name">Topic Name:</label>
+                        <input asp-for="Name" type="text" required class="form-control" id="topicName" name="Name" placeholder="Enter topic name">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" id="addTopicButton"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade mt-5" id="EditTopicModal" tabindex="-1" role="dialog" aria-labelledby="EditTopicModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="EditTopicModalLabel">Edit Topic</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Topic" asp-action="Edit" method="post">
+                    <input asp-for="Id" id="editId" value="" hidden />
+                    <div class="form-group">
+                        <label asp-for="Name">Topic Name:</label>
+                        <input asp-for="Name" required type="text" class="form-control" id="topicName" name="Name" placeholder="Enter topic name">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" id="editTopicButton"/>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade mt-5" id="DeleteTopicModal" tabindex="-1" role="dialog" aria-labelledby="DeleteTopicModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="DeleteTopicModalLabel">Delete Topic</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Topic" asp-action="Delete">
+                    <input asp-for="Id" id="deleteId" hidden/>
+                    <div class="form-group">
+                        <p>Are you Sure you want to Delete This Topic?</p>
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" id="DeleteTopicButton"/>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<section class="ftco-section mt-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section">Topics</h2>
+                <a class="btn btn-warning mt-3 p-3 text-white"  data-toggle="modal" data-target="#addTopicModal">Create New Topic</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="table-wrap">
+                    <table class="table table-hover">
+                        <thead class="thead-primary">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th class="table-actions ">Actions</th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var topic in Model.Topics)
+                            {
+                                <tr>
+                                    <td>@topic.Id</td>
+                                    <td>@topic.Name</td>
+                                    <td class="table-actions">
+                                        <a class="btn btn-primary text-white" data-toggle="modal" onclick="setIdEdit(@topic.Id)" data-target="#EditTopicModal">Edit</a>
+                                        <a class="btn btn-danger text-white" data-toggle="modal" onclick="setIdDelete(@topic.Id)" data-target="#DeleteTopicModal">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    function setIdEdit(id) {
+        document.getElementById("editId").value = id;
+    }
+    function setIdDelete(id) {
+        document.getElementById("deleteId").value = id;
+    }
+</script>
