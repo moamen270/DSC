@@ -1,0 +1,54 @@
+﻿@model DSC.Models.CourseInfo
+
+
+
+
+<!-- Start page content -->
+<div class="container mt-4 mt-lg-5">
+
+
+
+    <div class="owl-carousel owl-theme default-carousel  default-carousel-nav">
+        <div>
+                <img src="@Model.Course.ImageUrl" alt="" class="w-100">
+           
+        </div>
+
+    </div>
+    <div class="row mb-4 my-lg-5">
+        <div class="col-12 col-md-8">
+            <h2 class="mb-3"><a asp-action="Details" asp-route-id="@Model.Id" class="fables-main-text-color fables-second-hover-color font-26 semi-font">@Model.Course.Title</a></h2>
+
+            <p class="fables-fifth-text-color font-14">
+                @Model.Course.Description
+            </p>
+
+        </div>
+        <div class="col-12 col-md-4 col-lg-3 offset-lg-1 mt-md-5 mt-lg-0">
+            <div class="my-2">
+                <span class="fables-main-text-color font-15 semi-font">Instructor Name </span>
+                <span class="fables-forth-text-color fifth"> : @Model.InstructorName</span>
+            </div>
+            <div class="my-2">
+                <span class="fables-main-text-color font-15 semi-font">Topic </span>
+                <span class="fables-forth-text-color fifth"> : @Model.Course.Topic.Name </span>
+            </div>
+            <div class="my-2">
+                <span class="fables-main-text-color font-15 semi-font">Start Date </span>
+                <span class="fables-forth-text-color fifth"> : @Model.StartDate.ToString("yyyy-MM-dd") </span>
+            </div> 
+            <div class="my-2">
+                <span class="fables-main-text-color font-15 semi-font">End Date  </span>
+                <span class="fables-forth-text-color fifth"> : @Model.EndDate.ToString("yyyy-MM-dd") </span>
+            </div>
+            <div class="my-2">
+                <span class="fables-main-text-color font-15 semi-font">DeadLine Date  </span>
+                <span class="fables-forth-text-color fifth"> : @Model.DeadLine.ToString("yyyy-MM-dd") </span>
+            </div>
+            <a asp-action="Index" class="mt-4 btn fables-second-background-color white-color fables-main-hover-background-color font-15 white-color-hover px-5 py-2">More Courses</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- /End page content -->

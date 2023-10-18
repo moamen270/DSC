@@ -15,6 +15,7 @@ namespace DSC.Models.DTOs
         public DateTime EndDate { get; set; }
         public int CourseId { get; set; }
         public Course Course { get; set; }
-        public IEnumerable<CourseInfo> CourseInfos { get; set; }
+        public IEnumerable<CourseInfo> CoursesInfo { get; set; }
+        public IEnumerable<Course> Courses { get; set; }
     }
 }
