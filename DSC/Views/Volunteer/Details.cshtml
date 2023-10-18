@@ -1,32 +1,174 @@
-﻿@model DSC.Models.Volunteer
+﻿@model DSC.Models.DTOs.VolunteerProfileDto
+
+
+
+
+
+
+
+
+<style>
+    .table-wrap {
+        margin-bottom: 600px; /* Add space between the table and footer */
+    }
+
+    .table-actions {
+        text-align: right; /* Align the action buttons to the right */
+    }
+</style>
+<!-- Add this code inside your section -->
+
+
+<div class="modal fade mt-5" id="addVolunteerModal" tabindex="-1" role="dialog" aria-labelledby="addVolunteerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addVolunteerModalLabel">Add New Volunteer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create" method="post">
+                    <input asp-for="VolunteerId" type="hidden" value="@Model.Volunteer.Id" name="VolunteerId" />
+                    <div class="form-group">
+                        <div class="input-icon">
+                            <span class=" fables-input-icon font-19 mt-1"></span>
+                            <select asp-for="Profile" id="articleType" class="form-control" placeholder="">
+                                <option disabled selected> -- Select Gender -- </option>
+                                @foreach (var profile in Model.Profiles)
+                                {
+                                    <option value="@profile">@profile.ToString()</option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ProfileUrl">Volunteer Email:</label>
+                        <input asp-for="ProfileUrl" type="email" required class="form-control" id="ProfileUrl" name="ProfileUrl" placeholder="Enter Profile URL">
+                    </div>
+                   
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" id="addVolunteerButton" />
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade mt-5" id="EditVolunteerModal" tabindex="-1" role="dialog" aria-labelledby="EditVolunteerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="EditVolunteerModalLabel">Edit Volunteer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Edit" method="post">
+                    <input asp-for="Id" id="editId" value="" hidden />
+                    <input asp-for="VolunteerId" type="hidden" value="@Model.Volunteer.Id" name="VolunteerId" />
+                    <div class="form-group">
+                        <div class="input-icon">
+                            <span class=" fables-input-icon font-19 mt-1"></span>
+                            <select asp-for="Profile" id="articleType" class="form-control" placeholder="">
+                                <option disabled selected> -- Select Gender -- </option>
+                                @foreach (var profile in Model.Profiles)
+                                {
+                                    <option value="@profile">@profile.ToString()</option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ProfileUrl">Volunteer Email:</label>
+                        <input asp-for="ProfileUrl" type="email" required class="form-control" id="ProfileUrl" name="ProfileUrl" placeholder="Enter Profile URL">
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" id="editVolunteerButton" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade mt-5" id="DeleteVolunteerModal" tabindex="-1" role="dialog" aria-labelledby="DeleteVolunteerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="DeleteVolunteerModalLabel">Delete Volunteer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Delete">
+                    <input asp-for="Id" id="deleteId" hidden />
+                    <div class="form-group">
+                        <p>Are you Sure you want to Delete This Volunteer?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" id="DeleteVolunteerButton" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- Start page content -->
 <div class="container mt-4 mt-lg-5">
     <div class="owl-carousel owl-theme default-carousel  default-carousel-nav">
         <div>
             <a asp-action="Details" asp-route-id="@Model.Id">
-                <img src="@Model.ImgUrl" alt="" class="w-100">
+                <img src="@Model.Volunteer.ImgUrl" alt="" class="w-100">
             </a>
         </div>
 
     </div>
     <div class="row mb-4 my-lg-5">
         <div class="col-12 col-md-8">
-            <h2 class="mb-3"><a asp-action="Details" asp-route-id="@Model.Id" class="fables-main-text-color fables-second-hover-color font-26 semi-font">@Model.Name</a></h2>
+            <h2 class="mb-3"><a asp-action="Details" asp-route-id="@Model.Id" class="fables-main-text-color fables-second-hover-color font-26 semi-font">@Model.Volunteer.Name</a></h2>
 
             <p class="fables-fifth-text-color font-14">
-               @Model.Description
+               @Model.Volunteer.Description
             </p>
 
         </div>
         <div class="col-12 col-md-4 col-lg-3 offset-lg-1 mt-md-5 mt-lg-0">
             <div class="my-2">
                 <span class="fables-main-text-color font-15 semi-font">PhoneNumber </span>
-                <span class="fables-forth-text-color fifth"> : @Model.PhoneNumber </span>
+                <span class="fables-forth-text-color fifth"> : @Model.Volunteer.PhoneNumber </span>
             </div>
             <div class="my-2">
                 <span class="fables-main-text-color font-15 semi-font">Email </span>
-                <span class="fables-forth-text-color fifth"> : @Model.Email </span>
+                <span class="fables-forth-text-color fifth"> : @Model.Volunteer.Email </span>
             </div>
 
             <a asp-action="Index" class="mt-4 btn fables-second-background-color white-color fables-main-hover-background-color font-15 white-color-hover px-5 py-2">More Volunteer</a>
@@ -37,3 +179,63 @@
 
 </div>
 <!-- /End page content -->
+
+
+
+
+
+
+
+
+
+<section class="ftco-section mt-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section">Volunteers</h2>
+                <a class="btn btn-warning mt-3 p-3 text-white" data-toggle="modal" data-target="#addVolunteerModal">Create New Volunteer</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="table-wrap">
+                    <table class="table table-hover">
+                        <thead class="thead-primary">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>ImgUrl</th>
+                                <th class="table-actions ">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var profile in Model.SocialProfiles)
+                            {
+                                <tr>
+                                    <td>@profile.Id</td>
+                                    <td>@profile.Profile.ToString()</td>
+                                    <td> <i class="fab @profile.Icon"></i></td>
+                                    <td class="table-actions">
+                                        <a class="btn btn-primary text-white" data-toggle="modal" onclick="setIdEdit(@profile.Id)" data-target="#EditVolunteerModal">Edit</a>
+                                        <a class="btn btn-danger text-white" data-toggle="modal" onclick="setIdDelete(@profile.Id)" data-target="#DeleteVolunteerModal">Delete</a>
+                                        <a class="btn btn-warning text-white" asp-action="Details" asp-route-id="@profile.Id">Details</a>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    function setIdEdit(id) {
+        document.getElementById("editId").value = id;
+    }
+    function setIdDelete(id) {
+        document.getElementById("deleteId").value = id;
+    }
+</script>
