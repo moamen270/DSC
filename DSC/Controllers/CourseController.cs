@@ -28,13 +28,8 @@ namespace DSC.Controllers
 
             if (course == null)
                 return NotFound();
-            var courseInfos = await _unitOfWork.CourseInfo.GetAllAsync(info => info.CourseId == course.Id);
 
-            return View(new CourseInfoDto
-            {
-                Course = course,
-                CourseInfos = courseInfos,
-            });
+            return View(course);
         }
 
         [HttpPost]
@@ -69,43 +64,6 @@ namespace DSC.Controllers
                 _unitOfWork.Course.Delete(course);
                 await _unitOfWork.Save();
                 return RedirectToAction("Index");
-            }
-            return RedirectToAction("Index", "Error");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddInfo(CourseInfo courseInfo)
-        {
-            if (ModelState.IsValid)
-            {
-                await _unitOfWork.CourseInfo.AddAsync(courseInfo);
-                await _unitOfWork.Save();
-                return RedirectToAction("Details", "Course", new { courseInfo.CourseId });
-            }
-            return RedirectToAction("Index", "Error");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> EditInfo(CourseInfo courseInfo)
-        {
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.CourseInfo.Update(courseInfo);
-                await _unitOfWork.Save();
-                return RedirectToAction("Details", "Course", new { courseInfo.CourseId });
-            }
-            return RedirectToAction("Index", "Error");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> DeleteInfo(CourseInfo courseInfo)
-        {
-            if (ModelState.IsValid)
-            {
-                var id = courseInfo.CourseId;
-                _unitOfWork.CourseInfo.Delete(courseInfo);
-                await _unitOfWork.Save();
-                return RedirectToAction("Details", "Course", new { CourseId = id });
             }
             return RedirectToAction("Index", "Error");
         }
