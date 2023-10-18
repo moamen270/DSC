@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DSC.Models.DTOs;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DSC.Controllers
 {
@@ -6,18 +7,25 @@ namespace DSC.Controllers
     {
 
 
-        public FamilyController()
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly UserManager<User> _userManager;
+        public FamilyController(IUnitOfWork unitOfWork, UserManager<User> userManager)
         {
+            _unitOfWork = unitOfWork;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
         {
-            return View();
+            return View(new FamilyDto());
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public async Task<IActionResult> Create(Family family)
         {
-            return View();
+            await _unitOfWork.Family.AddAsync(family);
+            await _unitOfWork.Save();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
