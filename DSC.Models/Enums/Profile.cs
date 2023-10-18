@@ -13,5 +13,6 @@ namespace DSC.Models.Enums
         Twitter = 3,
         Instagram = 4,
         Google = 5,
+        Pinterest = 6,
     }
 }

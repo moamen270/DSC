@@ -1,5 +1,6 @@
 ﻿using DSC.Models;
 using DSC.Models.DTOs;
+using DSC.Models.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DSC.Controllers
@@ -59,19 +60,6 @@ namespace DSC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSocialProfile(SocialProfile socialProfile)
-        {
-            if (ModelState.IsValid)
-            {
-                /*socialProfile.Icon =  switch()*/
-                await _unitOfWork.SocialProfiles.AddAsync(socialProfile);
-                await _unitOfWork.Save();
-                return RedirectToAction("Index");
-            }
-            return View(socialProfile);
-        }
-
-        [HttpPost]
         public async Task<IActionResult> Delete(Volunteer volunteer)
         {
             if (ModelState.IsValid)
@@ -81,6 +69,63 @@ namespace DSC.Controllers
                 return RedirectToAction("Index");
             }
             return View(volunteer);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateSocialProfile(SocialProfile socialProfile)
+        {
+            if (ModelState.IsValid)
+            {
+                socialProfile.Icon = socialProfile.Profile switch
+                {
+                    Profile.Facebook => "fa-facebook",
+                    Profile.Google => "fa-google",
+                    Profile.Instagram => "fa-instagram",
+                    Profile.LinkedIn => "fa-linkedin",
+                    Profile.Twitter => "fa-twitter",
+                    Profile.Pinterest => "fa-pinterest",
+                    _ => "fables-iconemail"
+                };
+                await _unitOfWork.SocialProfiles.AddAsync(socialProfile);
+                await _unitOfWork.Save();
+                return RedirectToAction("Details", "Volunteer", new { id = socialProfile.VolunteerId });
+            }
+            return View(socialProfile);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditSocialProfile(SocialProfile socialProfile)
+        {
+            if (ModelState.IsValid)
+            {
+                socialProfile.Icon = socialProfile.Profile switch
+                {
+                    Profile.Facebook => "fa-facebook",
+                    Profile.Google => "fa-google",
+                    Profile.Instagram => "fa-instagram",
+                    Profile.LinkedIn => "fa-linkedin",
+                    Profile.Twitter => "fa-twitter",
+                    Profile.Pinterest => "fa-pinterest",
+                    _ => "fables-iconemail"
+                };
+                _unitOfWork.SocialProfiles.Update(socialProfile);
+                await _unitOfWork.Save();
+                return RedirectToAction("Details", "Volunteer", new { id = socialProfile.VolunteerId });
+            }
+            return View(socialProfile);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteSocialProfile(SocialProfile socialProfile)
+        {
+            if (ModelState.IsValid)
+            {
+                int id = socialProfile.VolunteerId;
+                _unitOfWork.SocialProfiles.Delete(socialProfile);
+                await _unitOfWork.Save();
+                return RedirectToAction("Details", "Volunteer", new { id = id });
+            }
+            return View(socialProfile);
         }
     }
 }
