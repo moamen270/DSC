@@ -1,119 +1,4 @@
-﻿@model DSC.Models.DTOs.CourseInfoDto
-
-
-<div class="modal fade mt-5" id="addCourseinfoModal" tabindex="-1" role="dialog" aria-labelledby="addCourseinfoModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addArticleModalLabel">Add New Article</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form asp-action="AddInfo">
-                    <input type="hidden" value="@Model.Course.Id" asp-for="CourseId" />
-                    <div class="form-group">
-                        <label asp-for="InstructorName">Instructor Name:</label>
-                        <input asp-for="InstructorName" type="text" required class="form-control" id="instructorName" name="instructorName" placeholder="Enter instructor name">
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="StartDate">Start Date:</label>
-                        <input asp-for="StartDate" type="date" min="@DateTime.UtcNow.ToString("yyyy-MM-dd")" max="" value="" required class="form-control" id="courseInfoName" name="StartDate" placeholder="Enter Start Date">
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="EndDate">End Date:</label>
-                        <input asp-for="EndDate" type="date" min="@DateTime.UtcNow.ToString("yyyy-MM-dd")" max="" value="" required class="form-control" id="courseInfoName" name="EndDate" placeholder="Enter End Date">
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="DeadLine">DeadLine Date:</label>
-                        <input asp-for="DeadLine" type="date" min="@DateTime.UtcNow.ToString("yyyy-MM-dd")" max="" value="" required class="form-control" id="courseInfoName" name="DeadLine" placeholder="Enter DeadLine Date">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" id="addFounderButton" />
-                    </div>
-
-                </form>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-
-<div class="modal fade mt-5" id="EditCourseInfoModal" tabindex="-1" role="dialog" aria-labelledby="EditCourseInfoModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="EditCourseModal">Edit Course</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form asp-controller="Course" asp-action="EditInfo" method="post">
-                    <input type="hidden" value="@Model.Course.Id" asp-for="CourseId" />
-                    <input asp-for="Id" id="editId" value="" hidden />
-                    <div class="form-group">
-                        <label asp-for="InstructorName">Instructor Name:</label>
-                        <input asp-for="InstructorName" type="text" required class="form-control" id="instructorName" name="instructorName" placeholder="Enter instructor name">
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="StartDate">Start Date:</label>
-                        <input asp-for="StartDate" type="date" min="@DateTime.UtcNow.ToString("yyyy-MM-dd")" max="" value="" required class="form-control" id="courseInfoName" name="StartDate" placeholder="Enter Start Date">
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="EndDate">End Date:</label>
-                        <input asp-for="EndDate" type="date" min="@DateTime.UtcNow.ToString("yyyy-MM-dd")" max="" value="" required class="form-control" id="courseInfoName" name="EndDate" placeholder="Enter End Date">
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="DeadLine">DeadLine Date:</label>
-                        <input asp-for="DeadLine" type="date" min="@DateTime.UtcNow.ToString("yyyy-MM-dd")" max="" value="" required class="form-control" id="courseInfoName" name="DeadLine" placeholder="Enter DeadLine Date">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" id="addFounderButton" />
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" id="editCourseButton" />
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal fade mt-5" id="DeleteCourseInfoModal" tabindex="-1" role="dialog" aria-labelledby="DeleteCourseInfoModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="DeleteCourseModalLabel">Delete Course</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form asp-controller="Course" asp-action="DeleteInfo">
-                    <input type="hidden" value="@Model.Course.Id" asp-for="CourseId" />
-
-                    <input asp-for="Id" id="deleteId" hidden />
-                    <div class="form-group">
-                        <p>Are you Sure you want to Delete This Course?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" id="DeleteCourseButton" />
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    </div>
-</div>
+﻿@model DSC.Models.Course
 
 
 
@@ -125,24 +10,24 @@
 
     <div class="owl-carousel owl-theme default-carousel  default-carousel-nav">
         <div>
-                <img src="@Model.Course.ImageUrl" alt="" class="w-100">
+                <img src="@Model.ImageUrl" alt="" class="w-100">
            
         </div>
 
     </div>
     <div class="row mb-4 my-lg-5">
         <div class="col-12 col-md-8">
-            <h2 class="mb-3"><a asp-action="Details" asp-route-id="@Model.Course.Id" class="fables-main-text-color fables-second-hover-color font-26 semi-font">@Model.Course.Title</a></h2>
+            <h2 class="mb-3"><a asp-action="Details" asp-route-id="@Model.Id" class="fables-main-text-color fables-second-hover-color font-26 semi-font">@Model.Title</a></h2>
 
             <p class="fables-fifth-text-color font-14">
-                @Model.Course.Description
+                @Model.Description
             </p>
 
         </div>
         <div class="col-12 col-md-4 col-lg-3 offset-lg-1 mt-md-5 mt-lg-0">
             <div class="my-2">
                 <span class="fables-main-text-color font-15 semi-font">Topic </span>
-                <span class="fables-forth-text-color fifth"> : @Model.Course.Topic.Name </span>
+                <span class="fables-forth-text-color fifth"> : @Model.Topic.Name </span>
             </div>
            @*  <div class="my-2">
                 <span class="fables-main-text-color font-15 semi-font">ArticleType </span>
@@ -152,55 +37,10 @@
                 <span class="fables-main-text-color font-15 semi-font">Date  </span>
                 <span class="fables-forth-text-color fifth"> : @Model.CDate.ToString("yyyy-MM-dd") </span>
             </div> *@
-            <a asp-action="AddInfo" class="mt-4 btn fables-second-background-color white-color fables-main-hover-background-color font-15 white-color-hover px-5 py-2" data-toggle="modal" data-target="#addCourseinfoModal">  Add Course</a>
             <a asp-action="Index" class="mt-4 btn fables-second-background-color white-color fables-main-hover-background-color font-15 white-color-hover px-5 py-2">More Courses</a>
         </div>
 
     </div>
-
-
-
-            <div class="row">
-                <div class="col-md-12">
-
-                    <div class="table-wrap">
-                        <table class="table table-hover">
-                            <thead class="thead-primary">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Instructor Name</th>
-                                    <th class="table-actions ">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var courseInfo in Model.CourseInfos)
-                                {
-                                    <tr>
-                                        <td>@courseInfo.Id</td>
-                                        <td>@courseInfo.InstructorName</td>
-                                        <td class="table-actions">
-                                            <a class="btn btn-primary text-white" data-toggle="modal" onclick="setIdEdit(@courseInfo.Id)" data-target="#EditCourseInfoModal">Edit</a>
-                                            <a class="btn btn-danger text-white" data-toggle="modal" onclick="setIdDelete(@courseInfo.Id)" data-target="#DeleteCourseInfoModal">Delete</a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
 </div>
 
-
-
-<script>
-    function setIdEdit(id) {
-        document.getElementById("editId").value = id;
-    }
-    function setIdDelete(id) {
-        document.getElementById("deleteId").value = id;
-    }
-
-</script>
 <!-- /End page content -->
