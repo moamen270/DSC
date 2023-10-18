@@ -1,0 +1,210 @@
+﻿@model DSC.Models.DTOs.MediaDto
+
+<style>
+    .table-wrap {
+        margin-bottom: 600px; /* Add space between the table and footer */
+    }
+
+    .table-actions {
+        text-align: right; /* Align the action buttons to the right */
+    }
+</style>
+<!-- Add this code inside your section -->
+
+
+<div class="modal fade mt-5" id="addMediaModal" tabindex="-1" role="dialog" aria-labelledby="addMediaModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addMediaModalLabel">Add New Media</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label asp-for="Title">Media Tittle:</label>
+                        <input asp-for="Title" type="text" required class="form-control" id="mediaTittle" name="Title" placeholder="Enter Media Title">
+                    </div>
+                   
+                    <div class="form-group">
+                        <label asp-for="Description">Description:</label>
+                        <textarea asp-for="Description" required class="form-control" id="mediaName" name="Description" placeholder="Enter Media Description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MediaType">Media Type:</label>
+                        <select asp-for="MediaType" id="mediaType" class="form-control">
+                            <option value="1">Image</option>
+                            <option value="2">Video</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="File">File :</label>
+                        <input asp-for="File" type="file" required class="form-control" id="mediaName" name="File" placeholder="Enter Media File">
+                    </div>
+@*                     <div class="form-group">
+                        <label asp-for="CategoryId">Category:</label>
+                        <select class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.Category, "Id", "Name"))">
+                            <option value="4">Select a category</option>
+                        </select>
+                    </div> *@
+                    <div class="form-group">
+                        <label asp-for="CollectionId">Collection:</label>
+                        <select asp-for="CollectionId" id="CollectionId" class="form-control">
+                            @foreach (var item in Model.Collections)
+                            {
+                                <option value="@item.Id">@item.Title</option>
+                            }
+
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" id="addFounderButton" />
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade mt-5" id="EditMediaModal" tabindex="-1" role="dialog" aria-labelledby="EditMediaModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="EditMediaModal">Edit Media</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                <input asp-for="Id" id="editId" value="" hidden />
+                <div class="form-group">
+                        <label asp-for="Title">Tittle:</label>
+                        <input asp-for="Title" required type="text" class="form-control" id="mediaName" name="Title" placeholder="Enter Tittle name">
+                </div>
+         
+                <div class="form-group">
+                    <label asp-for="Description">Description:</label>
+                        <textarea asp-for="Description" required class="form-control" id="mediaDescription" name="Description" placeholder="Enter media Description"></textarea>
+                </div>
+                    <div class="form-group">
+                        <label asp-for="MediaType">Media Type:</label>
+                        <select asp-for="MediaType" id="mediaType" class="form-control">
+                            <option value="1">Image</option>
+                            <option value="2">Video</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="File">File :</label>
+                        <input asp-for="File" type="file" required class="form-control" id="mediaName" name="File" placeholder="Enter Media File">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CollectionId">Collection:</label>
+                        <select asp-for="CollectionId" id="CollectionId" class="form-control">
+                            @foreach (var item in Model.Collections)
+                            {
+                                <option value="@item.Id">@item.Title</option>
+                            }
+
+                        </select>
+                    </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" id="editMediaButton" />
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade mt-5" id="DeleteMediaModal" tabindex="-1" role="dialog" aria-labelledby="DeleteMediaModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="DeleteMediaModalLabel">Delete Media</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Delete">
+                    <input asp-for="Id" id="deleteId" hidden />
+                    <div class="form-group">
+                        <p>Are you Sure you want to Delete This media?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" id="DeleteMediaButton" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<section class="ftco-section mt-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section">Medias</h2>
+                <a class="btn btn-warning mt-3 p-3 text-white" data-toggle="modal" data-target="#addMediaModal">Create New Media</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="table-wrap">
+                    <table class="table table-hover">
+                        <thead class="thead-primary">
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Type</th>
+                                <th class="table-actions ">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var Media in Model.Medias)
+                            {
+                                <tr>
+                                    <td>@Media.Id</td>
+                                    <td>@Media.Title</td>
+                                    <td>@Media.MediaType.ToString()</td>
+
+                                    <td class="table-actions">
+                                        <a class="btn btn-primary text-white" data-toggle="modal" onclick="setIdEdit(@Media.Id)" data-target="#EditMediaModal">Edit</a>
+                                        <a class="btn btn-danger text-white" data-toggle="modal" onclick="setIdDelete(@Media.Id)" data-target="#DeleteMediaModal">Delete</a>
+                                        <a class="btn btn-warning text-white" asp-action="Details" asp-route-MediaId="@Media.Id">Details</a>
+                                       
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    function setIdEdit(id) {
+        document.getElementById("editId").value = id;
+    }
+    function setIdDelete(id) {
+        document.getElementById("deleteId").value = id;
+    }
+
+</script>
