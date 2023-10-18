@@ -23,11 +23,15 @@ namespace DSC.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var volunteer = await _unitOfWork.Volunteer.FirstOrDefaultAsync(v=>v.Id==id);
+            var volunteer = await _unitOfWork.Volunteer.FirstOrDefaultAsync(v => v.Id == id);
             if (volunteer == null)
                 return NotFound();
-
-            return View(volunteer);
+            var socialProfiles = await _unitOfWork.SocialProfiles.GetAllAsync(p => p.VolunteerId == volunteer.Id);
+            return View(new VolunteerProfileDto
+            {
+                Volunteer = volunteer,
+                SocialProfiles = socialProfiles
+            });
         }
 
         [HttpPost]
@@ -59,6 +63,7 @@ namespace DSC.Controllers
         {
             if (ModelState.IsValid)
             {
+                /*socialProfile.Icon =  switch()*/
                 await _unitOfWork.SocialProfiles.AddAsync(socialProfile);
                 await _unitOfWork.Save();
                 return RedirectToAction("Index");
