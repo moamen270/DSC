@@ -23,9 +23,6 @@ namespace DSC.Models.DTOs
         public Gender Gender { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
-        public ICollection<Enroll> Courses { get; set; }
-        public ICollection<Family> Family { get; set; }
-        public ICollection<Apply> Services { get; set; }
         public Gender[] Genders { get; set; } = Enum.GetValues<Gender>();
         public CollageYear[] CollageYears { get; set; } = Enum.GetValues<CollageYear>();
         public Language[] Languages { get; set; } = Enum.GetValues<Language>();

@@ -1,4 +1,6 @@
-﻿using static Org.BouncyCastle.Math.EC.ECCurve;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.DependencyInjection;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace DSC.Extentions
 {
@@ -18,10 +20,24 @@ namespace DSC.Extentions
 			 .AddRoleValidator<RoleValidator<Role>>()
 			 .AddEntityFrameworkStores<ApplicationDbContext>()
 			 .AddDefaultTokenProviders();
+			services.AddAuthentication(options =>
+			{
+				options.DefaultScheme = IdentityConstants.ApplicationScheme;
+				options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+				options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
 
-			services.AddAuthentication().AddCookie("Identity.Application");
+			})
+			.AddCookie("Identity.Application")
+			.AddCookie("Identity.External")
+			.AddCookie("Identity.TwoFactorRememberMe")
+			.AddCookie("Identity.TwoFactorUserId");
 
-			return services;
+
+
+
+
+
+            return services;
 		}
 	}
 }

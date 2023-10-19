@@ -106,11 +106,6 @@
                                         Articles
                                     </a>
                                 </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link " asp-controller="Contact" asp-action="Index" id="sub-nav6" >
-                                        Contact 
-                                    </a>
-                                </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="sub-nav7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Manage
@@ -132,6 +127,12 @@
 
                                     </ul>
                                 </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link " asp-controller="Contact" asp-action="Index" id="sub-nav6" >
+                                        Contact 
+                                    </a>
+                                </li>
+
                             </ul>
 
                         </div>
@@ -143,31 +144,37 @@
                         <a href="#" class="open-search fables-third-text-color right  top-header-link px-3 px-md-2 px-lg-4 fables-second-hover-color border-0 max-line-height">
                             <span class="fables-iconsearch-icon"></span>
                         </a>
+
                         @if (SignInManager.IsSignedIn(User))
                         {
-                            if (@UserManager.GetUserAsync(User).Result.ImgaeUrl != null)
-                            {
-                                <a asp-controller="Account" asp-action="Profile" class="fables-third-text-color fables-second-hover-color font-13 top-header-link px-3 px-md-2 px-lg-4 max-line-height">
-                                    <img class="rounded-circle" width="40px" height="40px" src="@UserManager.GetUserAsync(User).Result.ImgaeUrl" />
-
+                            <div class="dropdown">
+                                <a class="fables-third-text-color fables-second-hover-color font-13 top-header-link px-3 px-md-2 px-lg-4 max-line-height dropdown-toggle" href="#" role="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @if (@UserManager.GetUserAsync(User).Result.ImgaeUrl != null)
+                                    {
+                                        <img class="rounded-circle" width="40px" height="40px" src="@UserManager.GetUserAsync(User).Result.ImgaeUrl" />
+                                    }
+                                    else
+                                    {
+                                        <span class="fables-iconuser"></span>
+                                    }
                                 </a>
-                            }
-                            else
-                            {
-                                
-                            
-                            <a asp-controller="Account" asp-action="Profile" class="fables-third-text-color fables-second-hover-color font-13 top-header-link px-3 px-md-2 px-lg-4 max-line-height"><span class="fables-iconuser"></span></a>
-                            }
+
+                                <div class="dropdown-menu" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" asp-controller="Account" asp-action="Profile">Profile</a>
+                                    <a class="dropdown-item" asp-controller="Student" asp-action="Index">Student Registertion</a>
+                                    <a class="dropdown-item" asp-controller="Family" asp-action="Index">Family Registertion</a>
+                                    <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a>
+                                </div>
+                            </div>
                         }
                         else
                         {
-                            <a asp-controller="Account" asp-action="Register" class="fables-third-text-color fables-second-hover-color font-13 top-header-link px-3 px-md-2 px-lg-4 max-line-height"><span class="fables-iconuser"></span></a>
-
+                            <a asp-controller="Account" asp-action="Register" class="fables-third-text-color fables-second-hover-color font-13 top-header-link px-3 px-md-2 px-lg-4 max-line-height">
+                                <span class="fables-iconuser"></span>
+                            </a>
                         }
-
-
-
                     </div>
+
                 </div>
             </div>
         </div>

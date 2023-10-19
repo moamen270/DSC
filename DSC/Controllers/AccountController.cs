@@ -1,6 +1,8 @@
 ﻿using DSC.Models.DTOs;
 using DSC.Models.Enums;
 using DSC.Services.IServices;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -132,6 +134,11 @@ namespace DSC.Controllers
 
             return RedirectToAction("Profile", "Account");
 
+        }
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
