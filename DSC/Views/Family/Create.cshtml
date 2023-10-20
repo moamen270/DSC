@@ -1,0 +1,111 @@
+﻿@model DSC.Models.DTOs.FamilyDto
+
+<div class="container-fluid pt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-validation">
+
+                        <form class="form-valide" asp-action="Create" method="post">
+
+                            <input type="hidden" asp-for="StudentId" />
+                            <h1 class="form-group">Family Register</h1>
+                            <div class="form-group row">
+                                <label asp-for="Name" class="col-lg-4 col-form-label" >
+                                    Name <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" asp-for="Name" class="form-control" id="val-username" name="Name" placeholder="Enter your Name..">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="Relation" class="col-lg-4 col-form-label">
+                                    Relation: <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <select asp-for="Relation" id="Relation" class="form-control" placeholder="">
+                                        <option disabled selected> -- Select Relation -- </option>
+                                        @foreach (var relation in Model.Relations)
+                                        {
+                                            <option value="@relation">@relation.ToString()</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                       
+                            <div class="form-group row">
+                                <label asp-for="Status" class="col-lg-4 col-form-label">
+                                    Status: <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <select asp-for="Status" id="Status" class="form-control" placeholder="">
+                                        <option disabled selected> -- Select Status -- </option>
+                                        @foreach (var status in Model.Statues)
+                                        {
+                                            <option value="@status">@status.ToString()</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="IsAlive" class="col-lg-4 col-form-label">
+                                    IsAlive: <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <select asp-for="IsAlive" class="form-control" id="IsAlive">
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="isDisability" class="col-lg-4 col-form-label">
+                                    isDisability: <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <select asp-for="isDisability" class="form-control" id="isDisability">
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="Income" class="col-lg-4 col-form-label">
+                                Income <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                <input type="text" asp-for="Income" class="form-control" id="val-username" name="Income" placeholder="Enter your Income..">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="Job" class="col-lg-4 col-form-label" for="val-website">
+                                    Job <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input asp-for="Job" type="text" class="form-control" id="val-website" name="Job" placeholder="Enter your Job...">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" asp-for="SSNImgUrl">
+                                    SSN Image<span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                <input asp-for="SSNImgUrl" type="text" class="form-control" id="Address" name="SSNImgUrl" placeholder="Enter your SSN Image">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-8 ml-auto">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
