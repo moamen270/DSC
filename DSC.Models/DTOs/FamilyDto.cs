@@ -18,5 +18,8 @@ namespace DSC.Models.DTOs
         public string SSNImgUrl { get; set; }
         public int StudentId { get; set; }
         public Student Student { get; set; }
+        public Relation[] Relations { get; set; } = Enum.GetValues<Relation>();
+        public Status[] Statues { get; set; } = Enum.GetValues<Status>();
+
     }
 }

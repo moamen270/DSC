@@ -1,4 +1,4 @@
-﻿@* @model DSC.Models.DTOs.FamilyDto
+﻿@model DSC.Models.DTOs.FamilyDto
 
 <div class="container-fluid pt-5">
     <div class="row justify-content-center">
@@ -6,162 +6,95 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-validation">
+
                         <form class="form-valide" asp-action="Create" method="post">
-                            <h1 class="form-group">Student Register</h1>
+
+                            <input type="hidden" asp-for="StudentId" />
+                            <h1 class="form-group">Family Register</h1>
                             <div class="form-group row">
-                                <label asp-for="User.Name" class="col-lg-4 col-form-label" for="val-username">
+                                <label asp-for="Name" class="col-lg-4 col-form-label" >
                                     Name <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-lg-6">
-                                    <input type="text" asp-for="User.Name" class="form-control" id="val-username" name="Name" placeholder="Enter your Name..">
+                                    <input type="text" asp-for="Name" class="form-control" id="val-username" name="Name" placeholder="Enter your Name..">
                                 </div>
                             </div>
+
                             <div class="form-group row">
-                                <label asp-for="SSN" class="col-lg-4 col-form-label" for="val-username">
-                                    SSN <span class="text-danger">*</span>
+                                <label asp-for="Relation" class="col-lg-4 col-form-label">
+                                    Relation: <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-lg-6">
-                                    <input type="text" asp-for="SSN" class="form-control" id="val-username" name="SSN" placeholder="Enter a SSN..">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label asp-for="SsnImageUrl" class="col-lg-4 col-form-label" for="val-SsnImageUrl">
-                                    SsnImageUrl <span class="text-danger">*</span>
-                                </label>
-                                <div class="col-lg-6">
-                                    <input type="text" asp-for="SsnImageUrl" class="form-control" id="val-SsnImageUrl" name="SsnImageUrl" placeholder="Enter a SsnImageUrl..">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label asp-for="DisabilityType" class="col-lg-4 col-form-label" for="val-DisabilityType">
-                                    DisabilityType: <span class="text-danger">*</span>
-                                </label>
-                                <div class="col-lg-6">
-                                    <input asp-for="DisabilityType" type="text" class="form-control" id="val-email" name="DisabilityType" placeholder="Your DisabilityType..">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label asp-for="Gender" class="col-lg-4 col-form-label" for="val-Gender">
-                                    Gender: <span class="text-danger">*</span>
-                                </label>
-                                <div class="col-lg-6">
-                                    <select asp-for="Gender" id="Gender" class="form-control" placeholder="">
-                                        <option disabled selected> -- Select Gender -- </option>
-                                        @foreach (var gender in Model.Genders)
+                                    <select asp-for="Relation" id="Relation" class="form-control" placeholder="">
+                                        <option disabled selected> -- Select Relation -- </option>
+                                        @foreach (var relation in Model.Relations)
                                         {
-                                            <option value="@gender">@gender.ToString()</option>
+                                            <option value="@relation">@relation.ToString()</option>
                                         }
                                     </select>
                                 </div>
                             </div>
                        
                             <div class="form-group row">
-                                <label asp-for="Language" class="col-lg-4 col-form-label">
-                                    Language: <span class="text-danger">*</span>
+                                <label asp-for="Status" class="col-lg-4 col-form-label">
+                                    Status: <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-lg-6">
-                                    <select asp-for="Language" id="Language" class="form-control" placeholder="">
-                                        <option disabled selected> -- Select Language -- </option>
-                                        @foreach (var language in Model.Languages)
+                                    <select asp-for="Status" id="Status" class="form-control" placeholder="">
+                                        <option disabled selected> -- Select Status -- </option>
+                                        @foreach (var status in Model.Statues)
                                         {
-                                            <option value="@language">@language.ToString()</option>
+                                            <option value="@status">@status.ToString()</option>
                                         }
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label asp-for="StudyType" class="col-lg-4 col-form-label">
-                                    StudyType: <span class="text-danger">*</span>
+                                <label asp-for="IsAlive" class="col-lg-4 col-form-label">
+                                    IsAlive: <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-lg-6">
-                                    <select asp-for="StudyType" id="StudyType" class="form-control" placeholder="">
-                                        <option disabled selected> -- Select StudyType -- </option>
-                                        @foreach (var studyType in Model.StudyTypes)
-                                        {
-                                            <option value="@studyType">@studyType.ToString()</option>
-                                        }
+                                    <select asp-for="IsAlive" id="IsAlive" class="form-control" placeholder="">
+                                    <option disabled selected> -- Select -- </option>
+                                        <option>Yes</option>
+                                        <option>No</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label asp-for="Department" class="col-lg-4 col-form-label">
-                                    Department <span class="text-danger">*</span>
+                                <label asp-for="isDisability" class="col-lg-4 col-form-label">
+                                    isDisability: <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-lg-6">
-                                    <input type="text" asp-for="Department" class="form-control" id="val-department" name="Department" placeholder="Enter your department..">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label asp-for="Religion" class="col-lg-4 col-form-label">
-                                    Religion: <span class="text-danger">*</span>
-                                </label>
-                                <div class="col-lg-6">
-                                    <select asp-for="Religion" id="Religion" class="form-control" placeholder="">
-                                        <option disabled selected> -- Select Religion -- </option>
-                                        @foreach (var religion in Model.Religions)
-                                        {
-                                            <option value="@religion">@religion.ToString()</option>
-                                        }
+                                    <select asp-for="isDisability" id="isDisability" class="form-control" placeholder="">
+                                        <option disabled selected> -- Select -- </option>
+                                        <option>Yes</option>
+                                        <option>No</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label asp-for="ImageUrl" class="col-lg-4 col-form-label" for="val-website">
-                                    ImageUrl <span class="text-danger">*</span>
+                                <label asp-for="Income" class="col-lg-4 col-form-label">
+                                Income <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-lg-6">
-                                    <input asp-for="ImageUrl" type="text" class="form-control" id="val-website" name="ImageUrl" placeholder="Enter your imageUrl...">
+                                <input type="text" asp-for="Income" class="form-control" id="val-username" name="Income" placeholder="Enter your Income..">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" asp-for="Address">
-                                    Address<span class="text-danger">*</span>
+                                <label asp-for="Job" class="col-lg-4 col-form-label" for="val-website">
+                                    Job <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-lg-6">
-                                    <input asp-for="Address" type="text" class="form-control" id="Address" name="Address" placeholder="Enter your Address">
+                                    <input asp-for="Job" type="text" class="form-control" id="val-website" name="Job" placeholder="Enter your Job...">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label asp-for="CollageYear" class="col-lg-4 col-form-label">
-                                    CollageYear: <span class="text-danger">*</span>
+                                <label class="col-lg-4 col-form-label" asp-for="SSNImgUrl">
+                                    SSN Image<span class="text-danger">*</span>
                                 </label>
                                 <div class="col-lg-6">
-                                    <select asp-for="CollageYear" id="CollageYear" class="form-control" placeholder="">
-                                        <option disabled selected> -- Select CollageYear -- </option>
-                                        @foreach (var collageYear in Model.CollageYears)
-                                        {
-                                            <option value="@collageYear">@collageYear.ToString()</option>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label asp-for="BithDate" class="col-lg-4 col-form-label">
-                                    Birth Date: <span class="text-danger">*</span>
-                                </label>
-                                <div class="col-lg-6">
-                                    <div class="input-icon">
-                                        <span class="fables-icondata fables-input-icon font-19 mt-1"></span>
-                                        <input required type="date" asp-for="BithDate" min="1990-01-01" max="@DateTime.UtcNow.ToString("yyyy-MM-dd")" value="" aria-describedby="dateGuide" aria-labelledby="dateLabel" class="form-control rounded-0 py-3 pl-5 font-13 sign-register-input" placeholder="Birth Date">
-                                        <span asp-validation-for="BithDate" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label asp-for="User.PhoneNumber" class="col-lg-4 col-form-label" for="val-number">
-                                    Phone Number <span class="text-danger">*</span>
-                                </label>
-                                <div class="col-lg-6">
-                                    <input asp-for="User.PhoneNumber" type="text" class="form-control" id="val-number" name="PhoneNumber" placeholder="Enter your phonenumber...">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label asp-for="User.Mobile" class="col-lg-4 col-form-label" for="val-range">
-                                    Mobile <span class="text-danger">*</span>
-                                </label>
-                                <div class="col-lg-6">
-                                    <input asp-for="User.Mobile" type="text" class="form-control" id="val-range" name="Mobile" placeholder="Enter your Mobile...">
+                                <input asp-for="SSNImgUrl" type="text" class="form-control" id="Address" name="SSNImgUrl" placeholder="Enter your SSN Image">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -177,4 +110,4 @@
     </div>
 </div>
 
- *@
+
