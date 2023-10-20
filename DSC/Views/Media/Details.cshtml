@@ -1,12 +1,22 @@
-﻿@model DSC.Models.Media
+﻿@using DSC.Models.Enums;
+@model DSC.Models.Media
 
 <!-- Start page content -->
 <div class="container mt-4 mt-lg-5">
     <div class="owl-carousel owl-theme default-carousel  default-carousel-nav">
         <div>
-            <a asp-action="Details" asp-route-id="@Model.Id">
+            @if(Model.MediaType == MediaType.Image)
+            {
                 <img src="@Model.ImageUrl" alt="" class="w-100">
-            </a>
+
+            }
+            else
+            {
+                <video class="w-100" controls>
+                    <source src="@Model.ImageUrl" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            }
         </div>
 
     </div>
