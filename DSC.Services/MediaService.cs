@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 
 namespace DSC.Services
 {
-    public class PhotoService : IPhotoService
+    public class MediaService : IMediaService
     {
         private readonly Cloudinary _cloudinary;
 
-        public PhotoService(IOptions<CloudinarySettings> config)
+        public MediaService(IOptions<CloudinarySettings> config)
         {
             var acc = new Account
             (
@@ -48,7 +48,31 @@ namespace DSC.Services
             return uploadResult;
         }
 
-        public async Task<DeletionResult> DeletePhotoAsync(string publicId)
+        public async Task<VideoUploadResult> AddVideoAsync(IFormFile file)
+        {
+            var uploadResult = new VideoUploadResult();
+
+            if (file.Length > 0)
+            {
+                using var stream = file.OpenReadStream();
+                var uploadParams = new VideoUploadParams
+                {
+                    File = new FileDescription(file.FileName, stream),
+                    Folder = "da-net7",
+                    EagerAsync = true,
+                    EagerTransforms = new List<Transformation>()
+                    {
+                        new EagerTransformation().Width(300).Height(300).Crop("fill").AudioCodec("none"),
+                        new EagerTransformation().Width(160).Height(100).Crop("fill").Gravity("south").AudioCodec("none"),
+                    }
+                };
+                uploadResult = await _cloudinary.UploadLargeAsync(uploadParams);
+            }
+
+            return uploadResult;
+        }
+
+        public async Task<DeletionResult> DeleteMediaAsync(string publicId)
         {
             var deleteParams = new DeletionParams(publicId);
 

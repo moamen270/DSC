@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 
 namespace DSC.Services.IServices
 {
-    public interface IPhotoService
+    public interface IMediaService
     {
         Task<ImageUploadResult> AddPhotoAsync(IFormFile file);
 
-        Task<DeletionResult> DeletePhotoAsync(string publicId);
+        Task<VideoUploadResult> AddVideoAsync(IFormFile file);
+
+        Task<DeletionResult> DeleteMediaAsync(string publicId);
     }
 }
