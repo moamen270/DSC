@@ -1,4 +1,6 @@
-﻿using DSC.Models.DTOs;
+﻿using CloudinaryDotNet.Actions;
+using DSC.Models.DTOs;
+using DSC.Models.Enums;
 using DSC.Services.IServices;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -8,12 +10,12 @@ namespace DSC.Controllers
     public class MediaController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IPhotoService _photoService;
+        private readonly IMediaService _mediaService;
 
-        public MediaController(IUnitOfWork unitOfWork, IPhotoService photoService)
+        public MediaController(IUnitOfWork unitOfWork, IMediaService photoService)
         {
             _unitOfWork = unitOfWork;
-            _photoService = photoService;
+            _mediaService = photoService;
         }
 
         [HttpGet]
@@ -40,7 +42,11 @@ namespace DSC.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _photoService.AddPhotoAsync(file);
+                RawUploadResult result =
+                    media.MediaType == MediaType.Image ?
+                    await _mediaService.AddPhotoAsync(file) :
+                    await _mediaService.AddVideoAsync(file);
+
                 if (result.Error != null)
                     return RedirectToAction("Index", "Error");
 
@@ -60,11 +66,15 @@ namespace DSC.Controllers
             {
                 if (!string.IsNullOrEmpty(media.ImageId))
                 {
-                    var DeleteResult = await _photoService.DeletePhotoAsync(media.ImageId);
+                    var DeleteResult = await _mediaService.DeleteMediaAsync(media.ImageId);
                     if (DeleteResult.Error is not null)
                         return RedirectToAction("Index", "Error");
                 }
-                var result = await _photoService.AddPhotoAsync(file);
+                RawUploadResult result =
+                   media.MediaType == MediaType.Image ?
+                   await _mediaService.AddPhotoAsync(file) :
+                   await _mediaService.AddVideoAsync(file);
+
                 if (result.Error != null)
                     return RedirectToAction("Index", "Error");
 
@@ -82,9 +92,10 @@ namespace DSC.Controllers
         {
             if (ModelState.IsValid)
             {
+                media = await _unitOfWork.Media.FirstOrDefaultAsync(media => media.Id == media.Id);
                 if (!string.IsNullOrEmpty(media.ImageId))
                 {
-                    var DeleteResult = await _photoService.DeletePhotoAsync(media.ImageId);
+                    var DeleteResult = await _mediaService.DeleteMediaAsync(media.ImageId);
                     if (DeleteResult.Error is not null)
                         return RedirectToAction("Index", "Error");
                 }
@@ -94,30 +105,5 @@ namespace DSC.Controllers
             }
             return RedirectToAction("Index", "Error");
         }
-
-        /*
-                [HttpPost]
-                [Route("AddPhoto/{id}")]
-                public async Task<IActionResult> AddPhoto(int id, IFormFile file)
-                {
-                    var drug = await _unitOfWork.Drug.GetFirstOrDefaultAsync(x => x.Id == id);
-                    if (drug == null)
-                        return NotFound();
-                    if (!string.IsNullOrEmpty(drug.ImageId))
-                    {
-                        var DeleteResult = await _photoService.DeletePhotoAsync(drug.ImageId);
-                        if (DeleteResult.Error is not null)
-                            return BadRequest(DeleteResult.Error);
-                    }
-                    var result = await _photoService.AddPhotoAsync(file);
-                    if (result.Error != null)
-                        return BadRequest(result.Error);
-                    drug.ImageId = result.PublicId;
-                    drug.ImageURL = result.SecureUrl.AbsoluteUri;
-                    _unitOfWork.Drug.Update(drug);
-                    await _unitOfWork.SaveAsync();
-
-                    return Ok(drug.ImageURL);
-                }*/
     }
 }
