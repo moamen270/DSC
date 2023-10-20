@@ -14,7 +14,7 @@ namespace DSC.Extentions
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IEmailService, EmailService>();
             services.Configure<CloudinarySettings>(configuration.GetSection("CloudinarySettings"));
-            services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<IMediaService, MediaService>();
             return services;
         }
     }
