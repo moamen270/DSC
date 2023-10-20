@@ -31,7 +31,7 @@ namespace DSC.Controllers
 			return RedirectToAction("Index", "Error");
 		}
 
-		[HttpPost("Edit")]
+		[HttpPost]
 		public async Task<IActionResult> Edit(Topic topic)
 		{
 			if (ModelState.IsValid)

@@ -8,6 +8,7 @@ namespace DSC.Models.DTOs
 {
     public class FamilyDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public Relation Relation { get; set; }
         public Status Status { get; set; }
@@ -18,6 +19,7 @@ namespace DSC.Models.DTOs
         public string SSNImgUrl { get; set; }
         public int StudentId { get; set; }
         public Student Student { get; set; }
+        public IEnumerable<Family> Families { get; set; }
         public Relation[] Relations { get; set; } = Enum.GetValues<Relation>();
         public Status[] Statues { get; set; } = Enum.GetValues<Status>();
 
