@@ -192,8 +192,8 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 text-center mb-5">
-                <h2 class="heading-section">Volunteers</h2>
-                <a class="btn btn-warning mt-3 p-3 text-white" data-toggle="modal" data-target="#addVolunteerModal">Create New Volunteer</a>
+                <h2 class="heading-section">Social Profiles</h2>
+                <a class="btn btn-warning mt-3 p-3 text-white" data-toggle="modal" data-target="#addVolunteerModal">Create New Social Profile</a>
             </div>
         </div>
         <div class="row">
@@ -204,8 +204,8 @@
                         <thead class="thead-primary">
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
                                 <th>Icon</th>
+                                <th>URL</th>
                                 <th class="table-actions ">Actions</th>
                             </tr>
                         </thead>
@@ -214,8 +214,8 @@
                             {
                                 <tr>
                                     <td>@profile.Id</td>
-                                    <td>@profile.Profile.ToString()</td>
                                     <td><a href="@profile.ProfileUrl" target="_blank"> <i class="fab @profile.Icon"></i></a></td>
+                                    <td><a href="@profile.ProfileUrl" target="_blank">@profile.ProfileUrl</a></td>
                                     <td class="table-actions">
                                         <a class="btn btn-primary text-white" data-toggle="modal" onclick="setIdEdit(@profile.Id)" data-target="#EditSocialProfileModal">Edit</a>
                                         <a class="btn btn-danger text-white" data-toggle="modal" onclick="setIdDelete(@profile.Id)" data-target="#DeleteSocialProfileModal">Delete</a>
