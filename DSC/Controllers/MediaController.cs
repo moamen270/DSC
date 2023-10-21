@@ -4,6 +4,7 @@ using DSC.Models.Enums;
 using DSC.Services.IServices;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DSC.Controllers
 {
@@ -38,20 +39,10 @@ namespace DSC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Media media, IFormFile file)
+        public async Task<IActionResult> Create(Media media)
         {
             if (ModelState.IsValid)
             {
-                RawUploadResult result =
-                    media.MediaType == MediaType.Image ?
-                    await _mediaService.AddPhotoAsync(file) :
-                    await _mediaService.AddVideoAsync(file);
-
-                if (result.Error != null)
-                    return RedirectToAction("Index", "Error");
-
-                media.ImageId = result.PublicId;
-                media.ImageUrl = result.SecureUrl.AbsoluteUri;
                 await _unitOfWork.Media.AddAsync(media);
                 await _unitOfWork.Save();
                 return RedirectToAction("Index");
@@ -60,48 +51,47 @@ namespace DSC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Media media, IFormFile file)
+        public async Task<IActionResult> Edit(Media media)
         {
             if (ModelState.IsValid)
             {
-                if (!string.IsNullOrEmpty(media.ImageId))
+                var oldMedia = await _unitOfWork.Media.FirstOrDefaultAsync(m => m.Id == media.Id);
+                if (!string.IsNullOrEmpty(oldMedia.PublicId))
                 {
-                    var DeleteResult = await _mediaService.DeleteMediaAsync(media.ImageId);
+                    var DeleteResult = await _mediaService.DeleteMediaAsync(oldMedia.PublicId);
                     if (DeleteResult.Error is not null)
                         return RedirectToAction("Index", "Error");
                 }
-                RawUploadResult result =
-                   media.MediaType == MediaType.Image ?
-                   await _mediaService.AddPhotoAsync(file) :
-                   await _mediaService.AddVideoAsync(file);
+                oldMedia.CollectionId = media.CollectionId;
+                oldMedia.Description = media.Description;
+                oldMedia.MediaType = media.MediaType;
+                oldMedia.PublicId = media.PublicId;
+                oldMedia.Title = media.Title;
+                oldMedia.Url = media.Url;
 
-                if (result.Error != null)
-                    return RedirectToAction("Index", "Error");
-
-                media.ImageId = result.PublicId;
-                media.ImageUrl = result.SecureUrl.AbsoluteUri;
-                _unitOfWork.Media.Update(media);
+                _unitOfWork.Media.Update(oldMedia);
                 await _unitOfWork.Save();
                 return RedirectToAction("Index");
             }
+
             return RedirectToAction("Index", "Error");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(Media media)
+        public async Task<IActionResult> Delete(Media request)
         {
             if (ModelState.IsValid)
             {
-                media = await _unitOfWork.Media.FirstOrDefaultAsync(media => media.Id == media.Id);
-                if (!string.IsNullOrEmpty(media.ImageId))
+                var media = await _unitOfWork.Media.FirstOrDefaultAsync(m => m.Id == request.Id);
+                if (!string.IsNullOrEmpty(media.PublicId))
                 {
-                    var DeleteResult = await _mediaService.DeleteMediaAsync(media.ImageId);
+                    var DeleteResult = await _mediaService.DeleteMediaAsync(media.PublicId);
                     if (DeleteResult.Error is not null)
                         return RedirectToAction("Index", "Error");
                 }
                 _unitOfWork.Media.Delete(media);
                 await _unitOfWork.Save();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Media");
             }
             return RedirectToAction("Index", "Error");
         }

@@ -7,13 +7,13 @@
         <div>
             @if(Model.MediaType == MediaType.Image)
             {
-                <img src="@Model.ImageUrl" alt="" class="w-100">
+                <img src="@Model.Url" alt="" class="w-100">
 
             }
             else
             {
                 <video class="w-100" controls>
-                    <source src="@Model.ImageUrl" type="video/mp4">
+                    <source src="@Model.Url" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             }
