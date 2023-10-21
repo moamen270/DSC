@@ -22,7 +22,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form asp-action="Create" enctype="multipart/form-data">
+                <form asp-action="Create">
+                    <input type="hidden" id="url" value="" asp-for="Url" />
+                    <input type="hidden" id="publicId" value="" asp-for="PublicId" />
                     <div class="form-group">
                         <label asp-for="Title">Media Tittle:</label>
                         <input asp-for="Title" type="text" required class="form-control" id="mediaTittle" name="Title" placeholder="Enter Media Title">
@@ -33,24 +35,6 @@
                         <textarea asp-for="Description" required class="form-control" id="mediaName" name="Description" placeholder="Enter Media Description"></textarea>
                     </div>
                     <div class="form-group">
-                        <label asp-for="MediaType">Media Type:</label>
-                        <select asp-for="MediaType" id="mediaType" class="form-control">
-                            <option value="1">Image</option>
-                            <option value="2">Video</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="File">File :</label>
-                        <input asp-for="File" type="file" required class="form-control" id="mediaName" name="File" placeholder="Enter Media File">
-                    </div>
-@*                     <div class="form-group">
-                        <label asp-for="CategoryId">Category:</label>
-                        <select class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.Category, "Id", "Name"))">
-                            <option value="4">Select a category</option>
-                        </select>
-                    </div> *@
-                    <div class="form-group">
                         <label asp-for="CollectionId">Collection:</label>
                         <select asp-for="CollectionId" id="CollectionId" class="form-control">
                             @foreach (var item in Model.Collections)
@@ -60,9 +44,45 @@
 
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label asp-for="MediaType">Media Type:</label>
+                        <select asp-for="MediaType" id="addMediaType" class="form-control">
+                            <option value="1">Image</option>
+                            <option value="2">Video</option>
+                        </select>
+                    </div>
+
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label>File :</label>
+
+                            </div>
+                            <div class="col-8">
+                            <input type="file" onchange="enableButton('uploadButton')" required class="form-control" id="uploadedMedia" placeholder="Enter Media File">
+
+                            </div>
+                            <div class="col-4">
+                                <button class="form-control btn " id="uploadButton" disabled
+                                    onclick="uploadImage('uploadedMedia','url', 'publicId', 'uploadButton', 'AddMediaButton','displayMedia','addMediaType');this.disabled=true; this.innerHTML='Uploading…';">
+                                    upload
+                                </button>
+                            </div>
+                        </div>
+                       
+                  
+                    <div id="displayMedia">
+                    </div>
+                  
+@*                     <div class="form-group">
+                        <label asp-for="CategoryId">Category:</label>
+                        <select class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.Category, "Id", "Name"))">
+                            <option value="4">Select a category</option>
+                        </select>
+                    </div> *@
+               
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" id="addFounderButton" />
+                        <input type="submit" class="btn btn-primary" id="AddMediaButton" disabled />
                     </div>
 
                 </form>
@@ -82,7 +102,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                <form asp-action="Edit" method="post" >
+                <input type="hidden" id="urlEdit" value="" asp-for="Url" />
+                <input type="hidden" id="publicIdEdit" value="" asp-for="PublicId" />
                 <input asp-for="Id" id="editId" value="" hidden />
                 <div class="form-group">
                         <label asp-for="Title">Tittle:</label>
@@ -94,17 +116,6 @@
                         <textarea asp-for="Description" required class="form-control" id="mediaDescription" name="Description" placeholder="Enter media Description"></textarea>
                 </div>
                     <div class="form-group">
-                        <label asp-for="MediaType">Media Type:</label>
-                        <select asp-for="MediaType" id="mediaType" class="form-control">
-                            <option value="1">Image</option>
-                            <option value="2">Video</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="File">File :</label>
-                        <input asp-for="File" type="file" required class="form-control" id="mediaName" name="File" placeholder="Enter Media File">
-                    </div>
-                    <div class="form-group">
                         <label asp-for="CollectionId">Collection:</label>
                         <select asp-for="CollectionId" id="CollectionId" class="form-control">
                             @foreach (var item in Model.Collections)
@@ -114,18 +125,44 @@
 
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label asp-for="MediaType">Media Type:</label>
+                        <select asp-for="MediaType" id="editMediaType" class="form-control">
+                            <option value="1">Image</option>
+                            <option value="2">Video</option>
+                        </select>
+                    </div>
+                                     
+                   
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <label>File :</label>
 
+                        </div>
+                        <div class="col-8">
+                            <input type="file" onchange="enableButton('editUploadButton')" required class="form-control" id="editUploadedMedia" placeholder="Enter Media File">
+
+                        </div>
+                        <div class="col-4">
+                            <button class="form-control btn " id="editUploadButton" disabled
+                                    onclick="uploadImage('editUploadedMedia','urlEdit', 'publicIdEdit', 'editUploadButton', 'EditMediaButton','editDisplayMedia','editMediaType');this.disabled=true; this.innerHTML='Uploading…';">
+                                upload
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <div id="editDisplayMedia">
+                    </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-primary" id="editMediaButton" />
+                        <input type="submit" class="btn btn-primary" id="EditMediaButton" disabled />
                 </div>
             </form>
             </div>
         </div>
     </div>
 </div>
-
-
 <div class="modal fade mt-5" id="DeleteMediaModal" tabindex="-1" role="dialog" aria-labelledby="DeleteMediaModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -152,15 +189,11 @@
         </div>
     </div>
 </div>
-
-
-
-
 <section class="ftco-section mt-4">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 text-center mb-5">
-                <h2 class="heading-section">Medias</h2>
+                <h2 class="heading-section">Media</h2>
                 <a class="btn btn-warning mt-3 p-3 text-white" data-toggle="modal" data-target="#addMediaModal">Create New Media</a>
             </div>
         </div>
@@ -201,11 +234,60 @@
     </div>
 </section>
 <script>
+    function enableButton(id) {
+        const button = document.getElementById(id)
+        button.classList.add( "btn-success");
+        button.disabled = false
+    }
     function setIdEdit(id) {
         document.getElementById("editId").value = id;
+
     }
     function setIdDelete(id) {
         document.getElementById("deleteId").value = id;
     }
+    function uploadImage(id, urlId, publicId, uploadButton, submitButton,mediaPlaceHolder,type) {
+        const url = "https://api.cloudinary.com/v1_1/del4xfgjr/auto/upload/";
 
+        const files = document.getElementById(id).files;
+        let file = files[0];
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", "odrfogc6");
+        formData.append("folder", "da-net7");
+
+        fetch(url, {
+            method: "POST",
+            body: formData,
+        })
+            .then((response) => {
+                return response.text();
+            })
+            .then((data) => {
+                const json = JSON.parse(data);
+
+                console.log(data);
+                console.log(json.public_id);
+                console.log(json.url);
+                console.log(json.resource_type);
+                document.getElementById(urlId).value = json.url
+                document.getElementById(publicId).value = json.public_id
+
+                const finishButton = document.getElementById(uploadButton);
+                finishButton.innerHTML = "Done";
+                document.getElementById(submitButton).disabled = false;
+
+                const media = document.getElementById(mediaPlaceHolder);
+                if (json.resource_type == "image") {
+                    document.getElementById(type).value = "1";
+
+                        media.innerHTML = `<img class="form-control" height="350px" src="${json.url}" alt=""/> `;
+                } else {
+                    document.getElementById(type).value = "2";
+
+                    media.innerHTML = `<video class="form-control" controls><source src="${json.url}" type="video/mp4">Your browser does not support the video tag.</video>`;
+                }
+            });
+    }
+    
 </script>
