@@ -219,9 +219,12 @@
                                     <td>@Media.MediaType.ToString()</td>
 
                                     <td class="table-actions">
-                                        <a class="btn btn-primary text-white" data-toggle="modal" onclick="setIdEdit(@Media.Id)" data-target="#EditMediaModal">Edit</a>
-                                        <a class="btn btn-danger text-white" data-toggle="modal" onclick="setIdDelete(@Media.Id)" data-target="#DeleteMediaModal">Delete</a>
-                                        <a class="btn btn-warning text-white" asp-action="Details" asp-route-MediaId="@Media.Id">Details</a>
+                                        <div class="row  justify-content-end">
+                                            <a class="btn btn-primary text-white col-lg-2 col-8 m-1 " data-toggle="modal" onclick="setIdEdit(@Media.Id)" data-target="#EditMediaModal">Edit</a>
+                                            <a class="btn btn-danger text-white col-lg-2 col-8 m-1" data-toggle="modal" onclick="setIdDelete(@Media.Id)" data-target="#DeleteMediaModal">Delete</a>
+                                            <a class="btn btn-warning text-white col-lg-2 col-8 m-1" asp-action="Details" asp-route-MediaId="@Media.Id">Details</a>
+                                        </div>
+                                        
                                        
                                     </td>
                                 </tr>
@@ -237,7 +240,9 @@
     function enableButton(id) {
         const button = document.getElementById(id)
         button.classList.add( "btn-success");
+        button.classList.remove("btn-danger");
         button.disabled = false
+        button.innerHTML = "Upload";
     }
     function setIdEdit(id) {
         document.getElementById("editId").value = id;
@@ -261,6 +266,12 @@
             body: formData,
         })
             .then((response) => {
+                if (!response.ok) {
+                    const finishButton = document.getElementById(uploadButton);
+                    finishButton.innerHTML = "Failed";
+                    finishButton.classList.replace("btn-success","btn-danger")
+                    return;
+                }
                 return response.text();
             })
             .then((data) => {
@@ -288,6 +299,5 @@
                     media.innerHTML = `<video class="form-control" controls><source src="${json.url}" type="video/mp4">Your browser does not support the video tag.</video>`;
                 }
             });
-    }
-    
+    } 
 </script>
