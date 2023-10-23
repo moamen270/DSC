@@ -63,7 +63,7 @@
                             </div>
                             <div class="col-4">
                                 <button class="form-control btn " id="uploadButton" disabled
-                                    onclick="uploadImage('uploadedMedia','url', 'publicId', 'uploadButton', 'AddMediaButton','displayMedia','addMediaType');this.disabled=true; this.innerHTML='Uploading…';">
+                                    onclick="uploadImage();this.disabled=true; this.innerHTML='Uploading…';">
                                     upload
                                 </button>
                             </div>
@@ -145,7 +145,7 @@
                         </div>
                         <div class="col-4">
                             <button class="form-control btn " id="editUploadButton" disabled
-                                    onclick="uploadImage('editUploadedMedia','urlEdit', 'publicIdEdit', 'editUploadButton', 'EditMediaButton','editDisplayMedia','editMediaType');this.disabled=true; this.innerHTML='Uploading…';">
+                                    onclick="EditImage();this.disabled=true; this.innerHTML='Uploading…';">
                                 upload
                             </button>
                         </div>
@@ -251,10 +251,68 @@
     function setIdDelete(id) {
         document.getElementById("deleteId").value = id;
     }
-    function uploadImage(id, urlId, publicId, uploadButton, submitButton,mediaPlaceHolder,type) {
-        const url = "https://api.cloudinary.com/v1_1/del4xfgjr/auto/upload/";
 
-        const files = document.getElementById(id).files;
+
+
+
+
+    function uploadImage() {
+        const url = "https://api.cloudinary.com/v1_1/del4xfgjr/auto/upload/";
+        const finishButton = document.getElementById("uploadButton");
+        const files = document.getElementById("uploadedMedia").files;
+        const formData = new FormData();
+
+        let file = files[0];
+        formData.append("file", file);
+        formData.append("upload_preset", "odrfogc6");
+        formData.append("folder", "da-net7");
+
+        fetch(url, {
+            method: "POST",
+            body: formData,
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    finishButton.innerHTML = "Failed";
+                    finishButton.classList.replace("btn-success","btn-danger")
+                    return;
+                }
+                return response.text();
+            })
+            .then((data) => {
+                finishButton.innerHTML = "Done";
+                const json = JSON.parse(data);
+                const mediaType = document.getElementById("addMediaType");
+                const media = document.getElementById("displayMedia");
+
+     
+                document.getElementById("url").value = json.url
+                document.getElementById("publicId").value = json.public_id
+                document.getElementById("AddMediaButton").disabled = false;
+
+                if (json.resource_type == "image") {
+                    mediaType.value = "1";
+
+                        media.innerHTML = `<img class="form-control" height="350px" src="${json.url}" alt=""/> `;
+                } else {
+                    mediaType.value = "2";
+
+                    media.innerHTML = `<video class="form-control" controls><source src="${json.url}" type="video/mp4">Your browser does not support the video tag.</video>`;
+                }
+            });
+    } 
+
+
+
+
+
+
+
+    function EditImage(){
+        const url = "https://api.cloudinary.com/v1_1/del4xfgjr/auto/upload/";
+        const finishButton = document.getElementById("editUploadButton");
+
+        const files = document.getElementById("editUploadedMedia").files;
         let file = files[0];
         const formData = new FormData();
         formData.append("file", file);
@@ -267,37 +325,31 @@
         })
             .then((response) => {
                 if (!response.ok) {
-                    const finishButton = document.getElementById(uploadButton);
                     finishButton.innerHTML = "Failed";
-                    finishButton.classList.replace("btn-success","btn-danger")
+                    finishButton.classList.replace("btn-success", "btn-danger")
                     return;
                 }
                 return response.text();
             })
             .then((data) => {
-                const json = JSON.parse(data);
-
-                console.log(data);
-                console.log(json.public_id);
-                console.log(json.url);
-                console.log(json.resource_type);
-                document.getElementById(urlId).value = json.url
-                document.getElementById(publicId).value = json.public_id
-
-                const finishButton = document.getElementById(uploadButton);
                 finishButton.innerHTML = "Done";
-                document.getElementById(submitButton).disabled = false;
 
-                const media = document.getElementById(mediaPlaceHolder);
+                const json = JSON.parse(data);
+                const media = document.getElementById("editDisplayMedia");
+                const mediaType = document.getElementById("editMediaType");
+                document.getElementById("urlEdit").value = json.url
+                document.getElementById("publicIdEdit").value = json.public_id
+                     
+                document.getElementById("EditMediaButton").disabled = false;
                 if (json.resource_type == "image") {
-                    document.getElementById(type).value = "1";
+                    mediaType.value = "1";
 
-                        media.innerHTML = `<img class="form-control" height="350px" src="${json.url}" alt=""/> `;
+                    media.innerHTML = `<img class="form-control" height="350px" src="${json.url}" alt=""/> `;
                 } else {
-                    document.getElementById(type).value = "2";
+                    mediaType.value = "2";
 
                     media.innerHTML = `<video class="form-control" controls><source src="${json.url}" type="video/mp4">Your browser does not support the video tag.</video>`;
                 }
             });
-    } 
+    }
 </script>
