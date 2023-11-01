@@ -118,16 +118,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var collection in Model.Collections)
+                            @{
+                                int count = 1;
+                            foreach (var collection in Model.Collections)
                             {
                                 <tr>
-                                    <td>@collection.Id</td>
+                                    <td>@count</td>
                                     <td>@collection.Title</td>
                                     <td class="table-actions">
                                         <a class="btn btn-primary text-white" data-toggle="modal" onclick="setIdEdit(@collection.Id)" data-target="#EditCollectionModal">Edit</a>
                                         <a class="btn btn-danger text-white" data-toggle="modal" onclick="setIdDelete(@collection.Id)" data-target="#DeleteCollectionModal">Delete</a>
                                     </td>
                                 </tr>
+                                count++;
+
+                            }
                             }
                         </tbody>
                     </table>

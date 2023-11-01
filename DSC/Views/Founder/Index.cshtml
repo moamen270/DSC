@@ -136,10 +136,15 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @{
+                                int count = 1;
+                            }
                             @foreach (var founder in Model.Founders)
                             {
                                 <tr >
-                                    <td>@founder.Id</td>
+                                    <td>@count</td>
+                                  
+                                   
                                     <td>@founder.Name</td>
                                     <td><img src="@founder.ImgUrl" class="rounded-circle border" width="60" height="50"  /></td>
                                     <td class="table-actions">
@@ -147,6 +152,7 @@
                                         <a class="btn btn-danger text-white" data-toggle="modal" onclick="setIdDelete(@founder.Id)" data-target="#DeleteFounderModal">Delete</a>
                                     </td>
                                 </tr>
+                                count++;
                             }
                         </tbody>
                     </table>

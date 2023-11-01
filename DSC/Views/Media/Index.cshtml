@@ -211,10 +211,17 @@
                             </tr>
                         </thead>
                         <tbody>
+
+                            @{
+                                int count = 1;
+                            }
                             @foreach (var Media in Model.Medias)
                             {
+                               
                                 <tr>
-                                    <td>@Media.Id</td>
+                                    <td>@count</td>
+                                   
+                                   
                                     <td>@Media.Title</td>
                                     <td>@Media.MediaType.ToString()</td>
 
@@ -228,6 +235,7 @@
                                        
                                     </td>
                                 </tr>
+                                count++;
                             }
                         </tbody>
                     </table>
