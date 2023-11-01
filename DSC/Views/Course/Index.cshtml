@@ -160,10 +160,13 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @{
+                                int count = 1;
+                            }
                             @foreach (var Course in Model.Courses)
                             {
                                 <tr>
-                                    <td>@Course.Id</td>
+                                    <td>@count</td>
                                     <td>@Course.Title</td>
                                     <td>@Course.Topic.Name</td>
                                     <td class="table-actions">
@@ -173,6 +176,8 @@
                                        
                                     </td>
                                 </tr>
+                                count++;
+
                             }
                         </tbody>
                     </table>

@@ -146,10 +146,13 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @{
+                                int count = 1;
+                                }
                             @foreach (var volunteer in Model.Volunteers)
                             {
                                 <tr>
-                                    <td>@volunteer.Id</td>
+                                    <td>@count</td>
                                     <td>@volunteer.Name</td>
                                     <td><img src="@volunteer.ImgUrl" class="rounded-circle border" width="60" height="50" /></td>
                                     <td class="table-actions">
@@ -159,6 +162,7 @@
                                         
                                     </td>
                                 </tr>
+                                count++;
                             }
                         </tbody>
                     </table>

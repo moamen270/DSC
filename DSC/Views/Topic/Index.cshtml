@@ -118,16 +118,20 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @{
+                                int count = 1;
+                            }
                             @foreach (var topic in Model.Topics)
                             {
                                 <tr>
-                                    <td>@topic.Id</td>
+                                    <td>@count</td>
                                     <td>@topic.Name</td>
                                     <td class="table-actions">
                                         <a class="btn btn-primary text-white" data-toggle="modal" onclick="setIdEdit(@topic.Id)" data-target="#EditTopicModal">Edit</a>
                                         <a class="btn btn-danger text-white" data-toggle="modal" onclick="setIdDelete(@topic.Id)" data-target="#DeleteTopicModal">Delete</a>
                                     </td>
                                 </tr>
+                                count++;
                             }
                         </tbody>
                     </table>
