@@ -7,6 +7,7 @@
         public DateTime CDate { get; set; }
         public string Description { get; set; }
         public string ImgUrl { get; set; }
+        public string PublicId { get; set; }
         public ArticleType ArticleType { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }

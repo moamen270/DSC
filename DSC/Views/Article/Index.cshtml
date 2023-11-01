@@ -23,14 +23,16 @@
             </div>
             <div class="modal-body">
                 <form asp-action="Create">
+                    <input type="hidden" id="url" value="" asp-for="ImgUrl" />
+                    <input type="hidden" id="publicId" value="" asp-for="PublicId" />
                     <div class="form-group">
                         <label asp-for="Tittle">Article Tittle:</label>
                         <input asp-for="Tittle" type="text" required class="form-control" id="articleTittle" name="Tittle" placeholder="Enter article name">
                     </div>
-                    <div class="form-group">
+                  @*   <div class="form-group">
                         <label asp-for="ImgUrl">ImgUrl:</label>
                         <input asp-for="ImgUrl" type="text" required class="form-control" id="articleName" name="ImgUrl" placeholder="Enter article imgUrl">
-                    </div>
+                    </div> *@
                     <div class="form-group">
                         <label asp-for="Description">Description:</label>
                         <textarea asp-for="Description" required class="form-control" id="articleName" name="Description" placeholder="Enter article Description"></textarea>
@@ -59,9 +61,32 @@
 
                         </select>
                     </div>
+
+
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <label>File :</label>
+
+                        </div>
+                        <div class="col-8">
+                            <input type="file" onchange="enableButton('uploadButton')" required class="form-control" id="uploadedMedia" placeholder="Enter Media File">
+
+                        </div>
+                        <div class="col-4">
+                            <button class="form-control btn " id="uploadButton" disabled
+                                    onclick="uploadImage();this.disabled=true; this.innerHTML='Uploading…';">
+                                upload
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <div id="displayMedia">
+                    </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" id="addFounderButton" />
+                        <input type="submit" class="btn btn-primary" id="AddMediaButton" disabled />
                     </div>
 
                 </form>
@@ -82,15 +107,14 @@
             </div>
             <div class="modal-body">
             <form asp-action="Edit" method="post">
+                    <input type="hidden" id="urlEdit" value="" asp-for="ImgUrl" />
+                    <input type="hidden" id="publicIdEdit" value="" asp-for="PublicId" />
                 <input asp-for="Id" id="editId" value="" hidden />
                 <div class="form-group">
                     <label asp-for="Tittle">Tittle:</label>
                     <input asp-for="Tittle" required type="text" class="form-control" id="articleName" name="Tittle"  placeholder="Enter Tittle name">
                 </div>
-                <div class="form-group">
-                    <label asp-for="ImgUrl">ImgUrl:</label>
-                    <input asp-for="ImgUrl" required class="form-control" id="articleImgUrl" name="ImgUrl" placeholder="Enter article ImgUrl" />
-                </div>
+               
                 <div class="form-group">
                     <label asp-for="Description">Description:</label>
                         <textarea asp-for="Description" required class="form-control" id="articleDescription" name="Description" placeholder="Enter article Description"></textarea>
@@ -114,9 +138,29 @@
                     </select>
                 </div>
 
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <label>File :</label>
+
+                        </div>
+                        <div class="col-8">
+                            <input type="file" onchange="enableButton('editUploadButton')" required class="form-control" id="editUploadedMedia" placeholder="Enter Media File">
+
+                        </div>
+                        <div class="col-4">
+                            <button class="form-control btn " id="editUploadButton" disabled
+                                    onclick="EditImage();this.disabled=true; this.innerHTML='Uploading…';">
+                                upload
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <div id="editDisplayMedia">
+                    </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-primary" id="editArticleButton" />
+                        <input type="submit" class="btn btn-primary" id="EditMediaButton" disabled />
                 </div>
             </form>
             </div>
@@ -203,11 +247,107 @@
     </div>
 </section>
 <script>
+    function enableButton(id) {
+        const button = document.getElementById(id)
+        button.classList.add("btn-success");
+        button.classList.remove("btn-danger");
+        button.disabled = false
+        button.innerHTML = "Upload";
+    }
     function setIdEdit(id) {
         document.getElementById("editId").value = id;
+
     }
     function setIdDelete(id) {
         document.getElementById("deleteId").value = id;
     }
 
+
+
+
+
+    function uploadImage() {
+        const url = "https://api.cloudinary.com/v1_1/del4xfgjr/image/upload/";
+        const finishButton = document.getElementById("uploadButton");
+        const files = document.getElementById("uploadedMedia").files;
+        const formData = new FormData();
+
+        let file = files[0];
+        formData.append("file", file);
+        formData.append("upload_preset", "odrfogc6");
+        formData.append("folder", "da-net7");
+
+        fetch(url, {
+            method: "POST",
+            body: formData,
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    finishButton.innerHTML = "Failed";
+                    finishButton.classList.replace("btn-success", "btn-danger")
+                    return;
+                }
+                return response.text();
+            })
+            .then((data) => {
+                finishButton.innerHTML = "Done";
+                const json = JSON.parse(data);
+                const media = document.getElementById("displayMedia");
+
+
+                document.getElementById("url").value = json.url
+                document.getElementById("publicId").value = json.public_id
+                document.getElementById("AddMediaButton").disabled = false;
+
+              
+
+                    media.innerHTML = `<img class="form-control" height="350px" src="${json.url}" alt=""/> `;
+               
+            });
+    }
+
+
+
+
+
+
+
+    function EditImage() {
+        const url = "https://api.cloudinary.com/v1_1/del4xfgjr/image/upload/";
+        const finishButton = document.getElementById("editUploadButton");
+
+        const files = document.getElementById("editUploadedMedia").files;
+        let file = files[0];
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", "odrfogc6");
+        formData.append("folder", "da-net7");
+
+        fetch(url, {
+            method: "POST",
+            body: formData,
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    finishButton.innerHTML = "Failed";
+                    finishButton.classList.replace("btn-success", "btn-danger")
+                    return;
+                }
+                return response.text();
+            })
+            .then((data) => {
+                finishButton.innerHTML = "Done";
+
+                const json = JSON.parse(data);
+                const media = document.getElementById("editDisplayMedia");
+                document.getElementById("urlEdit").value = json.url
+                document.getElementById("publicIdEdit").value = json.public_id
+
+                document.getElementById("EditMediaButton").disabled = false;
+             
+
+                media.innerHTML = `<img class="form-control" height="350px" src="${json.url}" alt=""/> `;
+             
+            });
+    }
 </script>
