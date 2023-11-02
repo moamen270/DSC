@@ -58,7 +58,7 @@
             </div>
             <div class="modal-body">
                 <form asp-action="Edit" method="post">
-                    <input asp-for="Id" id="editId" value="" hidden />
+                    <input asp-for="Id" id="editId" value="" type="hidden" />
                     <div class="form-group">
                         <label asp-for="Name">Founder Name:</label>
                         <input asp-for="Name" required type="text" class="form-control" id="founderName" name="Name" placeholder="Enter founder name">
@@ -96,7 +96,7 @@
             </div>
             <div class="modal-body">
                 <form asp-action="Delete">
-                    <input asp-for="Id" id="deleteId" hidden />
+                    <input asp-for="Id" id="deleteId" type="hidden" />
                     <div class="form-group">
                         <p>Are you Sure you want to Delete This Founder?</p>
                     </div>
