@@ -181,19 +181,21 @@ img.img-polaroid {
 header {
   background: #fff;
   margin: 0;
-  padding: 0 0 20px;
+  padding: 14px 0 20px;
   position: relative;
   z-index: 2000;
   -webkit-box-shadow: 0 2px 4px -2px #ddd;
   -moz-box-shadow: 0 2px 4px -2px #ddd;
   box-shadow: 0 2px 4px -2px #ddd;
 }
-
-header .top {
-  padding: 10px 0 10px;
-  margin: 0 0 30px;
-  background: #545454;
-}
+    header .span8{
+        padding-top:20px;
+    }
+    header .top {
+        padding: 10px 0 10px;
+        margin: 0 0 30px;
+        background: #545454;
+    }
 
 header .top p.topcontact {
   color: #ddd;
@@ -208,9 +210,7 @@ header .logo {
   float: left;
 }
 
-header .logo img {
-  margin-bottom: 10px;
-}
+
 
 header .logo h1 {
   color: #333;
@@ -2633,7 +2633,7 @@ ul.the-icons {
 /* colors */
 
 .options_box a.t_default {
-  background: #e96b56;
+  background: #123d67;
 }
 
 .options_box a.t_stamp {
