@@ -70,7 +70,7 @@
             </div>
             <div class="modal-body">
                 <form asp-controller="Course" asp-action="Edit" method="post">
-                <input asp-for="Id" id="editId" value="" hidden />
+                    <input asp-for="Id" id="editId" value="" type="hidden" />
                 <div class="form-group">
                     <label asp-for="Title">Title:</label>
                         <input asp-for="Title" required type="text" class="form-control" id="CourseName" name="Title" placeholder="Enter Title name">
@@ -120,7 +120,7 @@
             </div>
             <div class="modal-body">
                 <form asp-controller="Course" asp-action="Delete">
-                    <input asp-for="Id" id="deleteId" hidden />
+                    <input asp-for="Id" id="deleteId" type="hidden" />
                     <div class="form-group">
                         <p>Are you Sure you want to Delete This Course?</p>
                     </div>
@@ -139,7 +139,7 @@
 
 
 <section class="ftco-section mt-4">
-    <div class="container">
+    <div class="container" style="padding-top:10px;">
         <div class="row justify-content-center">
             <div class="col-md-6 text-center mb-5">
                 <h2 class="heading-section">Courses</h2>

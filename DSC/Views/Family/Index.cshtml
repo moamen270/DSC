@@ -24,7 +24,7 @@
             </div>
             <div class="modal-body">
                 <form asp-action="Delete">
-                    <input asp-for="Id" id="deleteId" hidden />
+                    <input asp-for="Id" id="deleteId" type="hidden" />
                     <div class="form-group">
                         <p>Are you Sure you want to Delete This Family Member?</p>
                     </div>
@@ -41,7 +41,7 @@
 
 <!-- Add this code inside your section -->
 <section class="ftco-section mt-4">
-    <div class="container">
+    <div class="container" style="padding-top:10px;">
         <div class="row justify-content-center">
             <div class="col-md-6 text-center mb-5">
                 <h2 class="heading-section">Family</h2>
