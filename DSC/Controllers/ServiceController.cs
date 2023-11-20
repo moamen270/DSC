@@ -19,12 +19,6 @@ namespace DSC.Controllers
             return View(new ServiceDto { Services = services });
         }
 
-        [HttpGet]
-        public async Task<IActionResult> HomeService()
-        {
-            return View();
-        }
-
 
         [HttpPost]
         public async Task<IActionResult> Create(Service service)

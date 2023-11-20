@@ -5,262 +5,269 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>DSC</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Your page description here" />
-    <meta name="author" content="" />
-
-    <!-- css -->
-    <link href="https://fonts.googleapis.com/css?family=Handlee|Open+Sans:300,400,600,700,800" rel="stylesheet">
-    <link href="~/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/css/bootstrap-responsive.css" rel="stylesheet" />
-    <link href="~/css/flexslider.css" rel="stylesheet" />
-    <link href="~/css/prettyPhoto.css" rel="stylesheet" />
-    <link href="~/css/camera.css" rel="stylesheet" />
-    <link href="~/css/jquery.bxslider.css" rel="stylesheet" />
-    <link href="~/css/cslider.css" rel="stylesheet" />
-    <link href="~/css/style.css" rel="stylesheet" />
-
-    <!-- Theme skin -->
-    <link href="~/color/default.css" rel="stylesheet" />
-
-    <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/ico/apple-touch-icon-144-precomposed.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/ico/apple-touch-icon-114-precomposed.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/ico/apple-touch-icon-72-precomposed.png" />
-    <link rel="apple-touch-icon-precomposed" href="~/ico/apple-touch-icon-57-precomposed.png" />
-    <link rel="shortcut icon" href="~/ico/DSC_Logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="DSC">
+    <meta name="author" content="Education Website">
+    <link rel="shortcut icon" href="~/assets/custom/images/shortcut.png">
+    <title>@ViewData["Title"] - DSC</title>
+    <!-- animate.css-->
+    <link href="~/assets/vendor/animate.css-master/animate.min.css" rel="stylesheet">
+    <!-- Load Screen -->
+    <link href="~/assets/vendor/loadscreen/css/spinkit.css" rel="stylesheet">
+    <!-- GOOGLE FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <!-- Font Awesome 5 -->
+    <link href="~/assets/vendor/fontawesome/css/fontawesome-all.min.css" rel="stylesheet">
+    <!-- Fables Icons -->
+    <link href="~/assets/custom/css/fables-icons.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="~/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/bootstrap/css/bootstrap-4-navbar.css" rel="stylesheet">
+    <!-- portfolio filter gallery -->
+    <link href="~/assets/vendor/portfolio-filter-gallery/portfolio-filter-gallery.css" rel="stylesheet">
+    <!-- Video Background -->
+    <link href="~/assets/vendor/video-background/video-background.css" rel="stylesheet">
+    <!-- FANCY BOX -->
+    <link href="~/assets/vendor/fancybox-master/jquery.fancybox.min.css" rel="stylesheet">
+    <!-- RANGE SLIDER -->
+    <link href="~/assets/vendor/range-slider/range-slider.css" rel="stylesheet">
+    <!-- OWL CAROUSEL  -->
+    <link href="~/assets/vendor/owlcarousel/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/owlcarousel/owl.theme.default.min.css" rel="stylesheet">
+    <!-- FABLES CUSTOM CSS FILE -->
+    <link href="~/assets/custom/css/custom.css" rel="stylesheet">
+    <!-- FABLES CUSTOM CSS RESPONSIVE FILE -->
+    <link href="~/assets/custom/css/custom-responsive.css" rel="stylesheet">
 </head>
 <body>
-   
+    <div class="search-section">
+        <a class="close-search" href="#"></a>
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <form method="post" action="#" class="w-50">
+                <div class="row">
+                    <div class="col-10">
+                        <input type="search" value="" class="form-control palce bg-transparent border-0 search-input" placeholder="Search Here ..." />
+                    </div>
+                    <div class="col-2 mt-3">
+                        <button type="submit" class="btn bg-transparent text-white"> <i class="fas fa-search"></i> </button>
+                    </div>
+                </div>
+            </form>
+        </div>
 
-@*     <!-- Loading Screen -->
+    </div>
+
+    <!-- Loading Screen -->
     <div id="ju-loading-screen">
         <div class="sk-double-bounce">
             <div class="sk-child sk-double-bounce1"></div>
             <div class="sk-child sk-double-bounce2"></div>
         </div>
-    </div> *@
+    </div>
 
-    <!-- start header -->
-    <header>
+    <!-- Start Fables Navigation -->
+    <div class="fables-navigation fables-main-background-color py-3 py-lg-0">
         <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-10 col-lg-9 pr-md-0">
+                    <nav class="navbar navbar-expand-md btco-hover-menu py-lg-2">
+
+                        <a class="navbar-brand pl-0" asp-controller="Home" asp-action="Index"><img src="~/assets/custom/images/DSC_11.png" width="150px" alt="Fables Template" class="fables-logo"></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#fablesNavDropdown" aria-controls="fablesNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="fables-iconmenu-icon text-white font-16"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="fablesNavDropdown">
+
+                            <ul class="navbar-nav mx-auto fables-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link " asp-controller="Home" asp-action="Index" id="sub-nav1" >
+                                        Home
+                                    </a>
+                                </li>
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link " asp-controller="Home" asp-action="Index" id="sub-nav2"  >
+                                        Services
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link " asp-controller="About" asp-action="Index" id="sub-nav3"  >
+                                        About
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link" asp-controller="Article" asp-action="Index"  id="sub-nav5">
+                                        Articles
+                                    </a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="sub-nav7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Manage
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="sub-nav7">
+                                        <li><a class="dropdown-item" asp-controller="Category" asp-action="Index">Categories</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Article" asp-action="Index">Articles</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Founder" asp-action="Index">Founders</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Service" asp-action="Index">Services</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Volunteer" asp-action="Index">Volunteers</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Topic" asp-action="Index">Topics</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Course" asp-action="Index">Courses</a></li>
+                                        <li><a class="dropdown-item" asp-controller="CourseInfo" asp-action="Index">CoursesInfo</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Collection" asp-action="Index">Collections</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Media" asp-action="Index">Media</a></li>
 
 
-            <div class="row nomargin">
-                <div class="span4">
-                    <div class="logo">
-                        <a asp-controller="Home" asp-action="Index"><img src="~/img/DSC_Logo.png" width="70px"  alt="" /></a>
-                    </div>
-                </div>
-                <div class="span8">
-                    <div class="navbar navbar-static-top">
-                        <div class="navigation">
-                            <nav>
-                                <ul class="nav topnav">
-                                    <li class="dropdown active">
-                                        <a asp-controller ="Home" asp-action="Index">
-                                            <i class="icon-home"></i> Home </a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a asp-controller="About" asp-action="Index">
-                                           About
-                                        </a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a asp-controller="Service" asp-action="HomeService">
-                                            Service
-                                        </a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="#">Pages <i class="icon-angle-down"></i></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="about.html">About us</a></li>
-                                            <li><a href="faq.html">FAQ</a></li>
-                                            <li><a href="team.html">Team</a></li>
-                                            <li><a href="services.html">Services</a></li>
-                                            <li><a href="pricingbox.html">Pricing boxes</a></li>
-                                            <li><a href="404.html">404</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="#">Portfolio <i class="icon-angle-down"></i></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="portfolio-2cols.html">Portfolio 2 columns</a></li>
-                                            <li><a href="portfolio-3cols.html">Portfolio 3 columns</a></li>
-                                            <li><a href="portfolio-4cols.html">Portfolio 4 columns</a></li>
-                                            <li><a href="portfolio-detail.html">Portfolio detail</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="#">Manage <i class="icon-angle-down"></i></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a asp-controller="Service" asp-action="Index">Services</a></li>
-                                            <li><a asp-controller="Category" asp-action="Index">Category</a></li>
-                                            <li><a asp-controller="Article" asp-action="Index">Article</a></li>
-                                            <li><a asp-controller="Media" asp-action="Index">Media</a></li>
-                                            <li><a asp-controller="Volunteer" asp-action="Index">Volunteer</a></li>
-                                            <li><a asp-controller="Topic" asp-action="Index">Topic</a></li>
-                                            <li><a asp-controller="Course" asp-action="Index">Course</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Contact" asp-action="Index">Contact </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Account" asp-action="Login">Login </a>
-                                    </li>
 
-                                </ul>
-                            </nav>
+
+                                    </ul>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link " asp-controller="Contact" asp-action="Index" id="sub-nav6" >
+                                        Contact 
+                                    </a>
+                                </li>
+
+                            </ul>
+
                         </div>
-                        <!-- end navigation -->
-                    </div>
+                    </nav>
                 </div>
-            </div>
-        </div>
-    </header>
-    <!-- end header -->
+                <div class="col-12 col-md-2 col-lg-3 pr-md-0 icons-header-mobile">
 
+                    <div class="fables-header-icons">
+                        <a href="#" class="open-search fables-third-text-color right  top-header-link px-3 px-md-2 px-lg-4 fables-second-hover-color border-0 max-line-height">
+                            <span class="fables-iconsearch-icon"></span>
+                        </a>
 
-@*                         @if (SignInManager.IsSignedIn(User))
-            {
-                <div class="dropdown">
-                    <a class="fables-third-text-color fables-second-hover-color font-13 top-header-link px-3 px-md-2 px-lg-4 max-line-height dropdown-toggle" href="#" role="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        @if (@UserManager.GetUserAsync(User).Result.ImgaeUrl != null)
+                        @if (SignInManager.IsSignedIn(User))
                         {
-                            <img class="rounded-circle" width="40px" height="40px" src="@UserManager.GetUserAsync(User).Result.ImgaeUrl" />
+                            <div class="dropdown">
+                                <a class="fables-third-text-color fables-second-hover-color font-13 top-header-link px-3 px-md-2 px-lg-4 max-line-height dropdown-toggle" href="#" role="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @if (@UserManager.GetUserAsync(User).Result.ImgaeUrl != null)
+                                    {
+                                        <img class="rounded-circle" width="40px" height="40px" src="@UserManager.GetUserAsync(User).Result.ImgaeUrl" />
+                                    }
+                                    else
+                                    {
+                                        <span class="fables-iconuser"></span>
+                                    }
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" asp-controller="Account" asp-action="Profile">Profile</a>
+
+                                    <a class="dropdown-item" asp-controller="Student" asp-action="Index">Student Registertion</a>
+                                    <a class="dropdown-item" asp-controller="Family" asp-action="Index">Family Registertion</a>
+                                    <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a>
+                                </div>
+                            </div>
                         }
                         else
                         {
-                            <span class="fables-iconuser"></span>
+                            <a asp-controller="Account" asp-action="Register" class="fables-third-text-color fables-second-hover-color font-13 top-header-link px-3 px-md-2 px-lg-4 max-line-height">
+                                <span class="fables-iconuser"></span>
+                            </a>
                         }
-                    </a>
-
-                    <div class="dropdown-menu" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" asp-controller="Account" asp-action="Profile">Profile</a>
-
-                        <a class="dropdown-item" asp-controller="Student" asp-action="Index">Student Registertion</a>
-                        <a class="dropdown-item" asp-controller="Family" asp-action="Index">Family Registertion</a>
-                        <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a>
                     </div>
-                </div>
-            }
-            else
-            {
-                <a asp-controller="Account" asp-action="Register" class="fables-third-text-color fables-second-hover-color font-13 top-header-link px-3 px-md-2 px-lg-4 max-line-height">
-                    <span class="fables-iconuser"></span>
-                </a>
-            } *@
 
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- /End Fables Navigation -->
     @RenderBody()
 
 
 
 
-    <footer>
+    <!-- Start Footer 2 Background Image  -->
+    <div class="fables-footer-image fables-after-overlay white-color py-4 py-lg-5 bg-rules">
         <div class="container">
             <div class="row">
-                <div class="span4">
-                    <div class="widget">
-                        <h5 class="widgetheading">Browse pages</h5>
-                        <ul class="link-list">
-                            <li><a href="#">Our company</a></li>
-                            <li><a href="#">Terms and conditions</a></li>
-                            <li><a href="#">Privacy policy</a></li>
-                            <li><a href="#">Press release</a></li>
-                            <li><a href="#">What we have done</a></li>
-                            <li><a href="#">Our support forum</a></li>
-                        </ul>
-
-                    </div>
-                </div>
-                <div class="span4">
-                    <div class="widget">
-                        <h5 class="widgetheading">Get in touch</h5>
-                        <address>
-                            <strong>Eterna company Inc.</strong><br>
-                            Somestreet 200 VW, Suite Village A.001<br>
-                            Jakarta 13426 Indonesia
-                        </address>
-                        <p>
-                            <i class="icon-phone"></i> (123) 456-7890 - (123) 555-7891 <br>
-                            <i class="icon-envelope-alt"></i> email@domainname.com
-                        </p>
-                    </div>
-                </div>
-                <div class="span4">
-                    <div class="widget">
-                        <h5 class="widgetheading">Subscribe newsletter</h5>
-                        <p>
-                            Keep updated for new releases and freebies. Enter your e-mail and subscribe to our newsletter.
-                        </p>
-                        <form class="subscribe">
-                            <div class="input-append">
-                                <input class="span2" id="appendedInputButton" type="text">
-                                <button class="btn btn-theme" type="submit">Subscribe</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="sub-footer">
-            <div class="container">
-                <div class="row">
-                    <div class="span6">
-                        <div class="copyright">
-                            <p><span>&copy; Eterna company. All right reserved</span></p>
+                <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 mt-2 mb-5 text-center">
+                    <h2 class="font-30 semi-font mb-5">Newsletter</h2>
+                    <form class="form-inline position-relative">
+                        <div class="form-group fables-subscribe-formgroup">
+                            <input type="email" class="form-control fables-subscribe-input fables-btn-rouned" placeholder="Your Email">
                         </div>
+                        <button type="submit" class="btn fables-second-background-color fables-btn-rouned fables-subscribe-btn">Subscribe</button>
+                    </form>
 
+                </div>
+                <div class="col-12 col-lg-4 mb-4 mb-lg-0">
+                    <a href="#" class="fables-second-border-color border-bottom pb-3 d-block mb-3 mt-minus-13"><img src="~/assets/custom/images/fables-logo.png" alt="fables template"></a>
+                    <p class="font-15 fables-third-text-color">
+                        t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.
+                        <br><br>
+                        t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+                    </p>
+
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <h2 class="font-20 semi-font fables-second-border-color border-bottom pb-3">Contact us</h2>
+                    <div class="my-3">
+                        <h4 class="font-16 semi-font"><span class="fables-iconmap-icon fables-second-text-color pr-2 font-20 mt-1 d-inline-block"></span> Address Information</h4>
+                        <p class="font-14 fables-fifth-text-color mt-2 ml-4">level13, 2Elizabeth St, Melbourne, Victor 2000</p>
                     </div>
-
-                    <div class="span6">
-                        <div class="credits">
-                            <!--
-                              All the links in the footer should remain intact.
-                              You can delete the links only if you purchased the pro version.
-                              Licensing information: https://bootstrapmade.com/license/
-                              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Eterna
-                            -->
-                            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-                        </div>
+                    <div class="my-3">
+                        <h4 class="font-16 semi-font"><span class="fables-iconphone fables-second-text-color pr-2 font-20 mt-1 d-inline-block"></span> Call Now </h4>
+                        <p class="font-14 fables-fifth-text-color mt-2 ml-4">+333 111 111 000</p>
+                    </div>
+                    <div class="my-3">
+                        <h4 class="font-16 semi-font"><span class="fables-iconemail fables-second-text-color pr-2 font-20 mt-1 d-inline-block"></span> Mail </h4>
+                        <p class="font-14 fables-fifth-text-color mt-2 ml-4">adminsupport@website.com</p>
                     </div>
                 </div>
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <h2 class="font-20 semi-font fables-second-border-color border-bottom pb-3 mb-3">EXPLORE OUR SITE</h2>
+                    <ul class="nav fables-footer-links">
+                        <li><a href="about1.html">About Us</a></li>
+                        <li><a href="contactus1.html">Contact Us</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="team.html">Team</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="testimonials.html">Testimonials</a></li>
+                    </ul>
+                </div>
+
             </div>
+
         </div>
-    </footer>
-    <a href="#" class="scrollup"><i class="icon-angle-up icon-square icon-bglight icon-2x active"></i></a>
+    </div>
+    <div class="copyright fables-main-background-color mt-0 border-0 white-color">
+        <ul class="nav fables-footer-social-links just-center fables-light-footer-links">
+            <li><a href="#" target="_blank"><i class="fab fa-google-plus-square"></i></a></li>
+            <li><a href="#" target="_blank"><i class="fab fa-facebook"></i></a></li>
+            <li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="#" target="_blank"><i class="fab fa-pinterest-square"></i></a></li>
+            <li><a href="#" target="_blank"><i class="fab fa-twitter-square"></i></a></li>
+            <li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+        </ul>
+        <p class="mb-0">Copyright © Fables 2018. All rights reserved.</p>
+
+    </div>
+
+    <!-- /End Footer 2 Background Image -->
 
 
-    <script src="~/js/jquery.js"></script>
-    <script src="~/js/jquery.easing.1.3.js"></script>
-    <script src="~/js/bootstrap.js"></script>
-
-    <script src="~/js/modernizr.custom.js"></script>
-    <script src="~/js/toucheffects.js"></script>
-    <script src="~/js/google-code-prettify/prettify.js"></script>
-    <script src="~/js/jquery.bxslider.min.js"></script>
-    <!-- parallax slider -->
-    <script src="~/js/modernizr.custom.js"></script>
-    <script src="~/js/jquery.cslider.js"></script>
-
-    <script src="~/js/jquery.prettyPhoto.js"></script>
-    <script src="~/js/portfolio/jquery.quicksand.js"></script>
-    <script src="~/js/portfolio/setting.js"></script>
-
-    <script src="~/js/jquery.flexslider.js"></script>
-    <script src="~/js/animate.js"></script>
-    <script src="~/js/inview.js"></script>
+    <script src="~/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="~/assets/vendor/jquery-circle-progress/circle-progress.min.js"></script>
+    <script src="~/assets/vendor/loadscreen/js/ju-loading-screen.js"></script>
+    <script src="~/assets/vendor/popper/popper.min.js"></script>
+    <script src="~/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/assets/vendor/WOW-master/dist/wow.min.js"></script>
+    <script src="~/assets/vendor/owlcarousel/owl.carousel.min.js"></script>
+    <script src="~/assets/vendor/loadscreen/js/ju-loading-screen.js"></script>
+    <script src="~/assets/vendor/fancybox-master/jquery.fancybox.min.js"></script>
+    <script src="~/assets/vendor/OffCanvasMenuEffects/js/classie.js"></script>
+    <script src="~/assets/vendor/OffCanvasMenuEffects/js/main.js"></script>
+    <script src="~/assets/vendor/timeline/jquery.timelify.js"></script>
+    <script src="~/assets/custom/js/custom.js"></script>
+    <script src="~/assets/vendor/video-background/jquery.mb.YTPlayer.js"></script>
     <script>
-        $(function () {
-            $('#da-slider').cslider();
-        });
+        $(".player").mb_YTPlayer();
     </script>
-
-    <!-- Template Custom JavaScript File -->
-    <script src="~/js/custom.js"></script>
 
 </body>
 </html>
