@@ -1,0 +1,65 @@
+﻿@using DSC.Models;
+@model List<Student>
+
+
+<section class="ftco-section mt-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section">Students</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="table-wrap">
+                    <table class="table table-hover">
+                        <thead class="thead-primary">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>ImgUrl</th>
+                                <th class="table-actions ">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int count = 1;
+                            }
+                            @foreach (var Student in Model)
+                            {
+                                <tr>
+                                    <td>@count</td>
+                                    @if (string.IsNullOrEmpty(Student.ImgaeUrl))
+                                    {
+                                        <td><img src="~/img/User.png" class="rounded-circle border" width="60" height="50" /></td>
+
+                                    }
+                                    else
+                                    {
+                                        <td><img src="@Student.ImgaeUrl" class="rounded-circle border" width="60" height="50" /></td>
+
+                                    }
+                                    <td>@Student.User.Name</td>
+                                    <td>@Student.User.Email</td>
+                                    <td class="table-actions">
+                                        <a class="btn btn-warning text-white" asp-action="Details" asp-route-Id="@Student.Id">Details</a>
+                                    </td>
+                                </tr>
+                                count++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    function setIdEdit(id) {
+        document.getElementById("editId").value = id;
+    }
+    function setIdDelete(id) {
+        document.getElementById("deleteId").value = id;
+    }
+</script>
