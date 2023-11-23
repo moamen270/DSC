@@ -5228,7 +5228,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .modal.fade.in {
-  top: 20%;
+  top: 10%;
 }
 
 .modal-header {
@@ -5237,7 +5237,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .modal-header .close {
-  margin-top: -40px;
+  margin-top: 2px;
 }
 
 .modal-header h3 {
