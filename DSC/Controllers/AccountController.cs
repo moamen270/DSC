@@ -126,7 +126,7 @@ namespace DSC.Controllers
 		}
 
         [HttpGet]
-        public async Task<IActionResult> UserForProfile()
+        public async Task<IActionResult> UserProfile()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null) return RedirectToAction("Index", "Error");
