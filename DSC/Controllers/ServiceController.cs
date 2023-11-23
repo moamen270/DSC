@@ -11,9 +11,11 @@ namespace DSC.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-        public  IActionResult HomeService()
+        [HttpGet]
+        public async Task<IActionResult> HomeService()
         {
-            return View();
+            var services = await _unitOfWork.Service.GetAllAsync();
+            return View(new ServiceDto { Services = services });
         }
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -21,7 +23,16 @@ namespace DSC.Controllers
             var services = await _unitOfWork.Service.GetAllAsync();
             return View(new ServiceDto { Services = services });
         }
+        [HttpGet]
+        public async Task<IActionResult> UserDetails(int id)
+        {
+            var service = await _unitOfWork.Service.FirstOrDefaultAsync(a => a.Id == id, includeProperties: c => c.Applies);
 
+            if (service == null)
+                return NotFound();
+
+            return View(service);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create(Service service)
