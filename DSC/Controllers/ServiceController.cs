@@ -11,7 +11,10 @@ namespace DSC.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-
+        public  IActionResult HomeService()
+        {
+            return View();
+        }
         [HttpGet]
         public async Task<IActionResult> Index()
         {
