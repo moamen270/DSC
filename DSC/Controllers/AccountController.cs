@@ -32,7 +32,13 @@ namespace DSC.Controllers
 			return View(new LoginDto());
 		}
 
-		[HttpPost]
+        [HttpGet]
+        public ActionResult UserLogin()
+        {
+            return View(new LoginDto());
+        }
+
+        [HttpPost]
 		public async Task<IActionResult> Login(LoginDto loginDto)
 		{
 			if (!ModelState.IsValid) return View(loginDto);
@@ -41,7 +47,7 @@ namespace DSC.Controllers
 			var result = await _signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password, true, false);
 			if (!result.Succeeded) return View(loginDto);
 
-			return RedirectToAction("Index", "Home");
+			return RedirectToAction("UserIndex", "Home");
 		}
 
 		[HttpGet]
@@ -119,6 +125,24 @@ namespace DSC.Controllers
 			return View(dto);
 		}
 
+        [HttpGet]
+        public async Task<IActionResult> UserForProfile()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return RedirectToAction("Index", "Error");
+
+            var dto = new UserProfileDto()
+            {
+                Email = user.Email,
+                FullName = user.Name,
+                MobileNumber = user.Mobile,
+                PhoneNumber = user.PhoneNumber,
+                ImgUrl = user.ImgaeUrl
+            };
+
+            return View(dto);
+        }
+
         [HttpPost]
         public async Task<IActionResult> ProfileEdit(UserProfileDto dto)
         {
@@ -138,7 +162,7 @@ namespace DSC.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("UserIndex", "Home");
         }
     }
 }

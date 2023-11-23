@@ -26,8 +26,27 @@ namespace DSC.Controllers
             return View(new ArticleDto { Articles = articles, Categories = categories });
         }
 
+        public async Task<IActionResult> UserIndex()
+        {
+            /*          ViewBag.Category = await _unitOfWork.Category.GetAllAsync();*/
+            var categories = await _unitOfWork.Category.GetAllAsync();
+            var articles = await _unitOfWork.Article.GetAllAsync();
+            return View(new ArticleDto { Articles = articles, Categories = categories });
+        }
+
         [HttpGet]
         public async Task<IActionResult> Details(int id)
+        {
+            var article = await _unitOfWork.Article.FirstOrDefaultAsync(a => a.Id == id, includeProperties: c => c.Category);
+
+            if (article == null)
+                return NotFound();
+
+            return View(article);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UserDetails(int id)
         {
             var article = await _unitOfWork.Article.FirstOrDefaultAsync(a => a.Id == id, includeProperties: c => c.Category);
 
