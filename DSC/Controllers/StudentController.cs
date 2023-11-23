@@ -15,7 +15,7 @@ namespace DSC.Controllers
         }
 
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> UserIndex()
         {
             var user = await _userManager.GetUserAsync(User);
 

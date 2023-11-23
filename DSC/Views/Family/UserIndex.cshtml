@@ -1,4 +1,8 @@
-﻿@model DSC.Models.DTOs.FamilyDto
+﻿@{
+    Layout = "_LayoutUser";
+}
+
+@model DSC.Models.DTOs.FamilyDto
 
 @{
     int count = 1;
@@ -40,7 +44,7 @@
 </div>
 
 <!-- Add this code inside your section -->
-<section class="ftco-section mt-4">
+<section class="ftco-section">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 text-center mb-5">
@@ -72,7 +76,7 @@
                                     <td>@family.Status</td>
                                     <td>@family.Relation</td>
                                     <td class="table-actions">
-                                        <a class="btn btn-primary text-white" asp-action="Edit" asp-route-id="@family.Id" >Edit</a>
+                                        <a class="btn btn-primary text-white" asp-action="Edit" asp-route-id="@family.Id">Edit</a>
                                         <a class="btn btn-danger text-white" data-toggle="modal" onclick="setIdDelete(@family.Id)" data-target="#DeleteFamilyModal">Delete</a>
                                     </td>
                                 </tr>

@@ -115,7 +115,7 @@
                                         <li class="nav-item active">
                                             <a asp-controller="Service" asp-action="HomeService" class="nav-link">Services </a>
                                         </li>
-                                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                                        <li class="nav-item"><a class="nav-link" asp-controller="Contact" asp-action="UserIndex">Contact</a></li>
                                         @if (SignInManager.IsSignedIn(User))
                                         {
                                             <div class="dropdown">
@@ -132,9 +132,8 @@
 
                                                 <div class="dropdown-menu" aria-labelledby="userDropdown">
                                                     <a class="dropdown-item" asp-controller="Account" asp-action="UserProfile">Profile</a>
-
-                                                    <a class="dropdown-item" asp-controller="Student" asp-action="Index">Student Registertion</a>
-                                                    <a class="dropdown-item" asp-controller="Family" asp-action="Index">Family Registertion</a>
+                                                    <a class="dropdown-item" asp-controller="Student" asp-action="UserIndex">Student Registertion</a>
+                                                    <a class="dropdown-item" asp-controller="Family" asp-action="UserIndex">Family Registertion</a>
                                                     <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a>
                                                 </div>
                                             </div>

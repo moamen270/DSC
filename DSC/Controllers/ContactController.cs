@@ -8,5 +8,9 @@ namespace DSC.Controllers
         {
             return View();
         }
+        public IActionResult UserIndex()
+        {
+            return View();
+        }
     }
 }
