@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "_LayoutUser";
 }
-@model DSC.Models.Service;
+@model DSC.Models.DTOs.ServiceDto;
 <div id="banner-area" class="banner-area" style="background-image:url(images/banner/banner1.jpg)">
     <div class="banner-text">
         <div class="container">
@@ -31,26 +31,25 @@
                     <div class="widget">
                         <h3 class="widget-title">Services</h3>
                         <ul class="nav service-menu">
-                            <li><a href="service-single.html">Home Construction</a></li>
-                            <li><a href="service-single.html">Building Remodels</a></li>
-                            <li><a href="#">Interior Design</a></li>
-                            <li><a href="#">Exterior Design</a></li>
-                            <li><a href="#">Renovation</a></li>
-                            <li><a href="#">Safety Management</a></li>
+                            @foreach(var service in Model.Services)
+                            {
+                                <li><a asp-controller="Service" asp-action="UserDetails" asp-route-id="@service.Id">@service.Name</a></li>
+                            }
+
                         </ul>
                     </div><!-- Widget end -->
 
                     <div class="widget">
                         <div class="quote-item quote-border">
                             <div class="quote-text-border">
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                                “I choose not to place ‘DIS’, in my ability.” 
                             </div>
 
                             <div class="quote-item-footer">
-                                <img loading="lazy" class="testimonial-thumb" src="images/clients/testimonial1.png" alt="testimonial">
+                                <img loading="lazy" class="testimonial-thumb" src="https://live.staticflickr.com/2615/3703565641_436d1bdc14_m.jpg" alt="testimonial">
                                 <div class="quote-item-info">
-                                    <h3 class="quote-author">Weldon Cash</h3>
-                                    <span class="quote-subtext">CEO, First Choice Group</span>
+                                    <h3 class="quote-author">Robert M. Hensel</h3>
+                                    <span class="quote-subtext">Advocate for the disabled</span>
                                 </div>
                             </div>
                         </div><!-- Quote item end -->
@@ -92,18 +91,17 @@
                             <h3 class="column-title-small">What Makes Us Different</h3>
 
                             <p>
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
-                                moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-                                Consectetur adipiscing elit. Integer adipiscing erat eget risus sollicitudin pellentesque et non erat
-                                tincidunt nunc posuere.
+                                Our company offers a comprehensive suite of services that address various aspects of disability, such as physical,
+                                emotional, and social well-being, it can set you apart. Providing a one-stop solution for diverse needs can
+                                be a unique selling proposition.
                             </p>
                             <ul class="list-arrow">
-                                <li>Partnership Strategy tristique eleifend.</li>
-                                <li>Opporutnity to work with amet elit a.</li>
-                                <li>Saving Time to Deal with commodo iaculis.</li>
-                                <li>Leadership skills to manage erat volutpat.</li>
-                                <li>Cut cost without sacrificing dolore magna.</li>
-                                <li>Automate your business elis tristique.</li>
+                                <li>Personalized Services.</li>
+                                <li>Inclusive Technology.</li>
+                                <li>Community Engagement.</li>
+                                <li>Expertise and Training.</li>
+                                <li>Transparent and Ethical Practices.</li>
+                                <li>Cost-Free Services.</li>
                             </ul>
                         </div>
 
@@ -116,7 +114,7 @@
                                         <h2 class="mb-0">
                                             <button class="btn btn-block text-left" type="button" data-toggle="collapse"
                                                     data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                Does the law require head protection on construction sites?
+                                                Know Your Rights
                                             </button>
                                         </h2>
                                     </div>
@@ -124,9 +122,8 @@
                                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
                                          data-parent="#construction-accordion">
                                         <div class="card-body">
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-                                            wolf
-                                            moon officia aute, non cupidata
+                                            Familiarize yourself with the laws and regulations that protect the rights of individuals with disabilities,
+                                            such as the Americans with Disabilities Act (ADA) in the United States or similar legislation in other countries.
                                         </div>
                                     </div>
                                 </div>
@@ -135,20 +132,15 @@
                                         <h2 class="mb-0">
                                             <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse"
                                                     data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                What are the first aid requirements for sites?
+                                                Accessible Resources
                                             </button>
                                         </h2>
                                     </div>
                                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
                                          data-parent="#construction-accordion">
                                         <div class="card-body">
-                                            Anemi nim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea com modo
-                                            consequat.
-                                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                                            pariatur.
-                                            Excepteur sint occaecat cupid henderit in voluptate velit esse cillu oris nisi ut aliquip ex ea
-                                            com
-                                            matat.
+                                            Be aware of accessible resources, including websites, apps, and technologies designed to assist individuals
+                                            with disabilities. Many tools exist to enhance communication, navigation, and daily activities.
                                         </div>
                                     </div>
                                 </div>
@@ -157,18 +149,15 @@
                                         <h2 class="mb-0">
                                             <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse"
                                                     data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                What is an appointed person?
+                                                Educational Opportunities
                                             </button>
                                         </h2>
                                     </div>
                                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
                                          data-parent="#construction-accordion">
                                         <div class="card-body">
-                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                                            the
-                                            industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                                            and
-                                            scrambled it to make a type specimen book.
+                                            Explore educational opportunities and resources tailored to individuals with disabilities.
+                                            Many institutions and organizations offer support and accommodations for learners with diverse needs.
                                         </div>
                                     </div>
                                 </div>

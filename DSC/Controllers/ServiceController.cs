@@ -1,4 +1,5 @@
-﻿using DSC.Models.DTOs;
+﻿using DSC.Models;
+using DSC.Models.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DSC.Controllers
@@ -15,6 +16,11 @@ namespace DSC.Controllers
         public async Task<IActionResult> HomeService()
         {
             var services = await _unitOfWork.Service.GetAllAsync();
+            foreach (var service in services)
+            {
+                int halfLength = service.Description.Length / 2;
+                service.Description = service.Description.Substring(0, halfLength);
+            }
             return View(new ServiceDto { Services = services });
         }
         [HttpGet]
@@ -26,10 +32,22 @@ namespace DSC.Controllers
         [HttpGet]
         public async Task<IActionResult> UserDetails(int id)
         {
-            var service = await _unitOfWork.Service.FirstOrDefaultAsync(a => a.Id == id, includeProperties: c => c.Applies);
+            var service = await _unitOfWork.Service.FirstOrDefaultAsync(a => a.Id == id);
+            var services = await _unitOfWork.Service.GetAllAsync();
+
+            var se = new ServiceDto
+            {
+                Services = services,
+                Name = service.Name,
+                Id = id,
+                Description = service.Description,
+                ImgUrl = service.ImgUrl,
+            };
 
             if (service == null)
                 return NotFound();
+            return View(se);
+        }
 
         [HttpGet]
         public async Task<IActionResult> Details(int ServiceId)
@@ -44,40 +62,40 @@ namespace DSC.Controllers
             return View(service);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(Service service)
-        {
-            if (ModelState.IsValid)
+            [HttpPost]
+            public async Task<IActionResult> Create(Service service)
             {
-                await _unitOfWork.Service.AddAsync(service);
-                await _unitOfWork.Save();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    await _unitOfWork.Service.AddAsync(service);
+                    await _unitOfWork.Save();
+                    return RedirectToAction("Index");
+                }
+                return View(service);
             }
-            return View(service);
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> Edit(Service service)
-        {
-            if (ModelState.IsValid)
+            [HttpPost]
+            public async Task<IActionResult> Edit(Service service)
             {
-                _unitOfWork.Service.Update(service);
-                await _unitOfWork.Save();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    _unitOfWork.Service.Update(service);
+                    await _unitOfWork.Save();
+                    return RedirectToAction("Index");
+                }
+                return View(service);
             }
-            return View(service);
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> Delete(Service service)
-        {
-            if (ModelState.IsValid)
+            [HttpPost]
+            public async Task<IActionResult> Delete(Service service)
             {
-                _unitOfWork.Service.Delete(service);
-                await _unitOfWork.Save();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    _unitOfWork.Service.Delete(service);
+                    await _unitOfWork.Save();
+                    return RedirectToAction("Index");
+                }
+                return View(service);
             }
-            return View(service);
         }
     }
-}
