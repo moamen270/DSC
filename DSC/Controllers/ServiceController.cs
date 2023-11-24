@@ -11,13 +11,25 @@ namespace DSC.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-
+        [HttpGet]
+        public async Task<IActionResult> HomeService()
+        {
+            var services = await _unitOfWork.Service.GetAllAsync();
+            return View(new ServiceDto { Services = services });
+        }
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             var services = await _unitOfWork.Service.GetAllAsync();
             return View(new ServiceDto { Services = services });
         }
+        [HttpGet]
+        public async Task<IActionResult> UserDetails(int id)
+        {
+            var service = await _unitOfWork.Service.FirstOrDefaultAsync(a => a.Id == id, includeProperties: c => c.Applies);
+
+            if (service == null)
+                return NotFound();
 
         [HttpGet]
         public async Task<IActionResult> Details(int ServiceId)
@@ -28,6 +40,7 @@ namespace DSC.Controllers
 
             var applies = await _unitOfWork.Apply.GetAllAsync(filter => filter.ServiceId == service.Id, includeProperties: property => property.Student.User);
             service.Applies = applies.ToList();
+
             return View(service);
         }
 

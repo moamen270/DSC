@@ -22,6 +22,11 @@ namespace DSC.Controllers
             var families = await _unitOfWork.Family.GetAllAsync(f => f.StudentId == student.Id);
             return View(new FamilyDto { Families = families });
         }
+        public async Task<IActionResult> UserIndex()
+        {
+            var families = await _unitOfWork.Family.GetAllAsync();
+            return View(new FamilyDto { Families = families });
+        }
 
         [HttpGet]
         public async Task<IActionResult> Create()
@@ -29,7 +34,7 @@ namespace DSC.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Index", "Error");
             }
             var student = await _unitOfWork.Student.FirstOrDefaultAsync(s => s.UserId == user.Id);
             return View(new FamilyDto { StudentId = student.Id });
@@ -40,7 +45,7 @@ namespace DSC.Controllers
         {
             await _unitOfWork.Family.AddAsync(family);
             await _unitOfWork.Save();
-            return RedirectToAction("Index", "Family");
+            return RedirectToAction("UserIndex", "Family");
         }
 
         [HttpGet]
@@ -68,13 +73,14 @@ namespace DSC.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Index", "Error");
             }
             var student = await _unitOfWork.Student.FirstOrDefaultAsync(s => s.UserId == user.Id);
             family.StudentId = student.Id;
             _unitOfWork.Family.Update(family);
             await _unitOfWork.Save();
-            return RedirectToAction("Index");
+
+            return RedirectToAction("UserIndex");
         }
 
         [HttpPost]
@@ -84,7 +90,7 @@ namespace DSC.Controllers
             {
                 _unitOfWork.Family.Delete(family);
                 await _unitOfWork.Save();
-                return RedirectToAction("Index");
+                return RedirectToAction("UserIndex");
             }
             return RedirectToAction("Index", "Error");
         }
