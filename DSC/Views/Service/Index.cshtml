@@ -145,6 +145,8 @@
                                     <td class="table-actions">
                                         <a class="btn btn-primary text-white" data-toggle="modal" onclick="setIdEdit(@service.Id)" data-target="#EditServiceModal">Edit</a>
                                         <a class="btn btn-danger text-white" data-toggle="modal" onclick="setIdDelete(@service.Id)" data-target="#DeleteServiceModal">Delete</a>
+                                        <a class="btn btn-warning text-white" asp-action="Details" asp-route-ServiceId="@service.Id">Details</a>
+
                                     </td>
                                 </tr>
                             }

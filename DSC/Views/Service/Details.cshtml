@@ -1,0 +1,75 @@
+﻿@model DSC.Models.Service
+
+
+
+
+<!-- Start page content -->
+<div class="container mt-4 mt-lg-5">
+
+
+
+    <div class="owl-carousel owl-theme default-carousel  default-carousel-nav">
+        <div>
+                <img src="@Model.ImgUrl" alt="" class="w-100">
+           
+        </div>
+
+    </div>
+    <div class="row mb-4 my-lg-5">
+        <div class="col-12 col-md-8">
+            <h2 class="mb-3">@Model.Name</h2>
+
+            <p class="fables-fifth-text-color font-14">
+                @Model.Description
+            </p>
+
+        </div>
+        <div class="col-12 col-md-4 col-lg-3 offset-lg-1 mt-md-5 mt-lg-0">
+            <div class="my-2">
+                <span class="fables-main-text-color font-15 semi-font">Number of Students </span>
+                <span class="fables-forth-text-color fifth"> : @Model.Applies.Count</span>
+            </div>
+          
+            <a asp-action="Index" class="mt-4 btn fables-second-background-color white-color fables-main-hover-background-color font-15 white-color-hover px-5 py-2">More Courses</a>
+        </div>
+    </div>
+</div>
+<section class="ftco-section mt-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section">Students Applied</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="table-wrap">
+                    <table class="table table-hover">
+                        <thead class="thead-primary">
+                            <tr>
+                                <th>Name</th>
+                                <th>Apply Date</th>
+                                <th>Actions</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var enroll in Model.Applies)
+                            {
+                                <tr>
+                                    <td>@enroll.Student.User.Name</td>
+                                    <td>@enroll.CDate.ToString("yyyy-MM-dd")</td>
+                                    <td>
+                                        <a class="btn btn-warning text-white" asp-controller="User" asp-action="Details" asp-route-Id="@enroll.StudentId">Details</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /End page content -->
