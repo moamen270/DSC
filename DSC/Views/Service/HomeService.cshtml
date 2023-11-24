@@ -1,5 +1,7 @@
 ﻿@{
     Layout = "_LayoutUser";
+
+
 }
 @model DSC.Models.DTOs.ServiceDto
 
@@ -32,15 +34,15 @@
                 <div class="col-lg-4 col-md-6 mb-5">
                     <div class="ts-service-box">
                         <div class="ts-service-image-wrapper">
-                            <img loading="lazy" class="w-100" src="@service.ImgUrl" alt="service-image">
+                            <img loading="lazy" class="w-100" src="@service.ImgUrl" alt="service-image" width="350px" height="220px">
                         </div>
                         <div class="d-flex">
                             <div class="ts-service-box-img">
-                                <img loading="lazy" src="images/icon-image/service-icon1.png" alt="service-icon">
+                                <img loading="lazy" src="@service.IconUrl" alt="service-icon" width="60px" height="60px">
                             </div>
                             <div class="ts-service-info">
                                 <h3 class="service-box-title"><a href="service-single.html">@service.Name</a></h3>
-                                <p>@service.Description</p>
+                                <p>@service.Description... </p>
                                 <a class="learn-more d-inline-block" asp-controller="Service" asp-action="UserDetails" asp-route-id="@service.Id" aria-label="service-details"><i class="fa fa-caret-right"></i> Learn more</a>
                             </div>
                         </div>

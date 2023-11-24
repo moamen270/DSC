@@ -6,6 +6,8 @@
         public string Name { get; set; }
         public string Description { get; set; }
         public string ImgUrl { get; set; }
+        public string IconUrl { get; set; }
+
 		public ICollection<Apply> Applies { get; set; }
 	}
 }
