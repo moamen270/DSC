@@ -31,6 +31,16 @@ namespace DSC.Controllers
             if (service == null)
                 return NotFound();
 
+        [HttpGet]
+        public async Task<IActionResult> Details(int ServiceId)
+        {
+            var service = await _unitOfWork.Service.FirstOrDefaultAsync(s => s.Id == ServiceId);
+            if (service == null)
+                return NotFound();
+
+            var applies = await _unitOfWork.Apply.GetAllAsync(filter => filter.ServiceId == service.Id, includeProperties: property => property.Student.User);
+            service.Applies = applies.ToList();
+
             return View(service);
         }
 

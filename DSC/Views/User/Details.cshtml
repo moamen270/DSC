@@ -23,7 +23,7 @@
 
 
 
-
+@* 
 
 
 <!-- Start page content -->
@@ -50,12 +50,35 @@
             <div class="my-2">
                 <span class="fables-main-text-color font-15 semi-font">Email </span>
                 <span class="fables-forth-text-color fifth"> : @Model.User.Email </span>
-                <span class="fables-forth-text-color fifth"> : @nameof(Model.Gender)</span>
-                <span class="fables-forth-text-color fifth"> : @nameof(Model.CollageYear)</span>
+            </div>
+            <div class="my-2">
+                <span class="fables-main-text-color font-15 semi-font">Gender </span>
+                <span class="fables-forth-text-color fifth"> : @Model.Gender.ToString()</span>
+            </div>
+
+                <div class="my-2">
+                <span class="fables-main-text-color font-15 semi-font">Collage Year </span>
+                <span class="fables-forth-text-color fifth"> : @Model.CollageYear.ToString()</span>
+                </div>
+
+                    <div class="my-2">
+                <span class="fables-main-text-color font-15 semi-font">Department </span>
                 <span class="fables-forth-text-color fifth"> : @Model.Department</span>
-                <span class="fables-forth-text-color fifth"> : @nameof(Model.Language)</span>
-                <span class="fables-forth-text-color fifth"> : @nameof(Model.StudyType)</span>
-                <span class="fables-forth-text-color fifth"> : @nameof(Model.Religion)</span>
+                    </div>
+
+                        <div class="my-2">
+                <span class="fables-main-text-color font-15 semi-font">Language </span>
+                <span class="fables-forth-text-color fifth"> : @Model.Language.ToString()</span>
+                        </div>
+
+                            <div class="my-2">
+                <span class="fables-main-text-color font-15 semi-font">Study Type </span>
+                <span class="fables-forth-text-color fifth"> : @Model.StudyType.ToString()</span>
+                            </div>
+
+                                <div class="my-2">
+                <span class="fables-main-text-color font-15 semi-font">Religion </span>
+                <span class="fables-forth-text-color fifth"> : @Model.Religion.ToString()</span>
             </div>
 
             <a asp-action="Index" class="mt-4 btn fables-second-background-color white-color fables-main-hover-background-color font-15 white-color-hover px-5 py-2">More Students</a>
@@ -69,17 +92,79 @@
 
 
 
+ *@
 
 
 
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Student Information</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-5">
+                    <img src="@Model.User.ImgaeUrl" class="img-fluid" alt="Student Image">
+                </div>
+                <div class="col-sm-6">
+                    <dl class="row">
 
+                        <dt class="col-sm-3">Name:</dt>
+                        <dd class="col-sm-9">@Model.User.Name</dd>
 
+                        <dt class="col-sm-3">Email:</dt>
+                        <dd class="col-sm-9">@Model.User.Email</dd>
+
+                        <dt class="col-sm-3">Phone Number:</dt>
+                        <dd class="col-sm-9">@Model.User.PhoneNumber</dd>
+
+                        <dt class="col-sm-3">Social Security Number:</dt>
+                        <dd class="col-sm-9">@Model.SSN</dd>
+
+                        <dt class="col-sm-3">Address:</dt>
+                        <dd class="col-sm-9">@Model.Address</dd>
+                        <dt class="col-sm-3">Disability Type:</dt>
+                        <dd class="col-sm-9">@Model.DisabilityType</dd>
+                        <dt class="col-sm-3">Department:</dt>
+                        <dd class="col-sm-9">@Model.Department</dd>
+                        <dt class="col-sm-3">Collage Year:</dt>
+                        <dd class="col-sm-9">@Model.CollageYear</dd>
+                        <dt class="col-sm-3">Language:</dt>
+                        <dd class="col-sm-9">@Model.Language</dd>
+                        <dt class="col-sm-3">Study Type:</dt>
+                        <dd class="col-sm-9">@Model.StudyType</dd>
+                        <dt class="col-sm-3">Religion:</dt>
+                        <dd class="col-sm-9">@Model.Religion</dd>
+                        <dt class="col-sm-3">Gender:</dt>
+                        <dd class="col-sm-9">@Model.Gender</dd>
+                        <!-- Add other properties as needed -->
+                        <!-- Example with a date property -->
+                        <dt class="col-sm-3">Birth Date:</dt>
+                        <dd class="col-sm-9">@Model.BithDate.ToString("yyyy-MM-dd")</dd>
+                    </dl>
+                </div>
+            </div>
+        
+        </div>
+        <div class="row justify-content-around">
+           <div class="col-sm-5">
+                <img src="@Model.SsnImageUrl" class="img-fluid" alt="Ssn Image">
+
+           </div>
+            <div class="col-sm-5">
+                <img src="@Model.StudentIdImageUrl" class="img-fluid" alt="Student Id Image">
+
+            </div>
+            <!-- Add more images or content as needed -->
+        </div>
+    </div>
+</div>
 
 <section class="ftco-section mt-4">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 text-center mb-5">
-                <h2 class="heading-section">Family</h2>
+                <h2 class="heading-section">Family Members</h2>
             </div>
         </div>
         <div class="row">
@@ -95,6 +180,8 @@
                                 <th>Is Alive</th>
                                 <th>Status</th>
                                 <th>Income</th>
+                                <th>Action</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -103,10 +190,13 @@
                                 <tr>
                                     <td>@member.Name</td>
                                     <td>@member.Job</td>
-                                    <td>@nameof(member.Relation)</td>
+                                    <td>@member.Relation.ToString()</td>
                                     <td>@member.IsAlive</td>
-                                    <td>@nameof(member.Status)</td>
+                                    <td>@member.Status.ToString()</td>
                                     <td>@member.Income</td>
+                                    <td>
+                                        <a class="btn btn-warning text-white" asp-controller="Family" asp-action="Details" asp-route-Id="@member.Id">Details</a>
+                                    </td>
                                    
                                 </tr>
                             }

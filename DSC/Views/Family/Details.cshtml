@@ -1,0 +1,143 @@
+﻿@model DSC.Models.DTOs.FamilyDto
+
+
+
+
+
+
+
+
+<style>
+    .table-wrap {
+        margin-bottom: 600px; /* Add space between the table and footer */
+    }
+
+    .table-actions {
+        text-align: right; /* Align the action buttons to the right */
+    }
+</style>
+<!-- Add this code inside your section -->
+
+
+
+
+
+
+@* 
+
+
+<!-- Start page content -->
+<div class="container mt-4 mt-lg-5">
+    <div class="owl-carousel owl-theme default-carousel  default-carousel-nav">
+        <div>
+                <img src="@Model.ImgaeUrl" alt="" class="w-100">
+            </a>
+        </div>
+
+    </div>
+    <div class="row mb-4 my-lg-5">
+        <div class="col-12 col-md-8">
+            <h2 >@Model.User.Name</h2>
+
+          
+
+        </div>
+        <div class="col-12 col-md-4 col-lg-3 offset-lg-1 mt-md-5 mt-lg-0">
+            <div class="my-2">
+                <span class="fables-main-text-color font-15 semi-font">PhoneNumber </span>
+                <span class="fables-forth-text-color fifth"> : @Model.User.PhoneNumber </span>
+            </div>
+            <div class="my-2">
+                <span class="fables-main-text-color font-15 semi-font">Email </span>
+                <span class="fables-forth-text-color fifth"> : @Model.User.Email </span>
+            </div>
+            <div class="my-2">
+                <span class="fables-main-text-color font-15 semi-font">Gender </span>
+                <span class="fables-forth-text-color fifth"> : @Model.Gender.ToString()</span>
+            </div>
+
+                <div class="my-2">
+                <span class="fables-main-text-color font-15 semi-font">Collage Year </span>
+                <span class="fables-forth-text-color fifth"> : @Model.CollageYear.ToString()</span>
+                </div>
+
+                    <div class="my-2">
+                <span class="fables-main-text-color font-15 semi-font">Department </span>
+                <span class="fables-forth-text-color fifth"> : @Model.Department</span>
+                    </div>
+
+                        <div class="my-2">
+                <span class="fables-main-text-color font-15 semi-font">Language </span>
+                <span class="fables-forth-text-color fifth"> : @Model.Language.ToString()</span>
+                        </div>
+
+                            <div class="my-2">
+                <span class="fables-main-text-color font-15 semi-font">Study Type </span>
+                <span class="fables-forth-text-color fifth"> : @Model.StudyType.ToString()</span>
+                            </div>
+
+                                <div class="my-2">
+                <span class="fables-main-text-color font-15 semi-font">Religion </span>
+                <span class="fables-forth-text-color fifth"> : @Model.Religion.ToString()</span>
+            </div>
+
+            <a asp-action="Index" class="mt-4 btn fables-second-background-color white-color fables-main-hover-background-color font-15 white-color-hover px-5 py-2">More Students</a>
+        </div>
+
+    </div>
+   
+
+</div>
+<!-- /End page content -->
+
+
+
+ *@
+
+
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Student Family Memeber</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-5">
+                    <img src="@Model.SSNImgUrl" class="img-fluid" alt="Student Image">
+                </div>
+                <div class="col-sm-6">
+                    <dl class="row">
+
+                        <dt class="col-sm-3">Name:</dt>
+                        <dd class="col-sm-9">@Model.Name</dd>
+
+                        <dt class="col-sm-3">Job:</dt>
+                        <dd class="col-sm-9">@Model.Job</dd>
+
+                        <dt class="col-sm-3">Income:</dt>
+                        <dd class="col-sm-9">@Model.Income</dd>
+
+                        <dt class="col-sm-3">Is Alive:</dt>
+                        <dd class="col-sm-9">@Model.IsAlive</dd>
+
+                        <dt class="col-sm-3">Is Disability:</dt>
+                        <dd class="col-sm-9">@Model.isDisability</dd>
+                       
+                    </dl>
+                </div>
+            </div>
+        
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    function setIdEdit(id) {
+        document.getElementById("editId").value = id;
+    }
+    function setIdDelete(id) {
+        document.getElementById("deleteId").value = id;
+    }
+</script>
