@@ -24,12 +24,12 @@ namespace DSC.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int CourseInfoId)
         {
-            var courseInfos = await _unitOfWork.CourseInfo.FirstOrDefaultAsync(course => course.Id == CourseInfoId, property => property.Course);
+            var courseInfos = await _unitOfWork.CourseInfo.FirstOrDefaultAsync(course => course.Id == CourseInfoId, property => property.Course.Topic);
             if (courseInfos == null)
                 return NotFound();
-            var topic = await _unitOfWork.Topic.FirstOrDefaultAsync(filter => filter.Id == courseInfos.Course.TopicId);
 
-            courseInfos.Course.Topic = topic;
+            var enrolls = await _unitOfWork.Enroll.GetAllAsync(filter => filter.CourseInfoId == courseInfos.Id, includeProperties: property => property.Student.User);
+            courseInfos.Students = enrolls.ToList();
             return View(courseInfos);
         }
 
