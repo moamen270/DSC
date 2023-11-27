@@ -1,7 +1,19 @@
 ﻿@{
     Layout = "_LayoutUser";
 }
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 @model DSC.Models.DTOs.ServiceDto;
+
+<style>
+    .disabled-btn {
+        pointer-events: none;
+        opacity: 0.5; /* You can adjust the opacity to make it visually appear disabled */
+        cursor: not-allowed; /* Change cursor to indicate that the button is not clickable */
+        color: #808080; /* Change text color to a muted gray to indicate it's disabled */
+        /* Add any other styling as needed */
+    }
+</style>
 <div id="banner-area" class="banner-area" style="background-image:url(images/banner/banner1.jpg)">
     <div class="banner-text">
         <div class="container">
@@ -168,7 +180,19 @@
                     <!--2nd row end -->
 
                     <div class="gap-40"></div>
-
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <div class="general-btn text-center">
+                            <a class="btn btn-primary" asp-controller="Service" asp-action="Enroll">Enroll</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="general-btn text-center disabled-btn">
+                            <h3>You Must Login first</h3>
+                            <a class="btn btn-primary" asp-controller="Service" asp-action="Enroll">Enroll</a>
+                        </div>
+                    }
 
                 </div><!-- Content inner end -->
             </div><!-- Content Col end -->
