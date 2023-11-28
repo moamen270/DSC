@@ -1,0 +1,80 @@
+﻿@{
+    Layout = "_LayoutUser";
+}
+@using DSC.Models.Enums;
+@model DSC.Models.DTOs.MediaDto;
+<section id="project-area" class="project-area solid-bg">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-12">
+                <h2 class="section-title">Work of Excellence</h2>
+                <h3 class="section-sub-title">Gallary</h3>
+            </div>
+        </div>
+        <!--/ Title row end -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="shuffle-btn-group">
+                    <label class="active" for="all">
+                        <input type="radio" name="shuffle-filter" id="all" value="all" checked="checked">Show All
+                    </label>
+                    @foreach(var item in Model.Collections)
+                    {
+                        <label asp-for="@item.Title">
+                            <input type="radio" name="shuffle-filter" id="commercial" value="@item.Title">@item.Title
+                        </label>
+                    }
+
+                 
+                </div><!-- project filter end -->
+
+
+                <div class="row shuffle-wrapper">
+                    <div class="col-1 shuffle-sizer"></div>
+                    @foreach(var item in Model.Medias)
+                    {
+                        <div class="col-lg-4 col-md-6 shuffle-item" data-groups="[&quot;@item.Collection&quot;,&quot;@item.Collection&quot;]">
+                            <div class="project-img-container">
+                                <a class="gallery-popup" href="@item.Url" aria-label="project-img">
+                                    @if (@item.MediaType == MediaType.Image)
+                                    {
+                                    <img class="img-fluid" src="@item.Url" alt="project-img">
+
+                                    }
+                                    else
+                                    {
+                                        <video class="img-fluid" controls>
+                                            <source src="@item.Url" type="video/mp4">
+
+                                        </video>
+                                    }
+
+                                    <span class="gallery-icon"><i class="fa fa-plus"></i></span>
+                                </a>
+                                <div class="project-item-info">
+                                    <div class="project-item-info-content">
+                                        <h3 class="project-item-title">
+                                            <a href="projects-single.html">@item.Title</a>
+                                        </h3>
+                                        <p class="project-cat">@item.MediaType</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
+
+            </div>
+
+            <div class="col-12">
+                <div class="general-btn text-center">
+                    <a class="btn btn-primary" href="projects.html">View All Projects</a>
+                </div>
+            </div>
+
+        </div><!-- Content row end -->
+    </div>
+    <!--/ Container end -->
+</section><!-- Project area end -->

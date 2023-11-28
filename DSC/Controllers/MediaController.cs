@@ -28,6 +28,14 @@ namespace DSC.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> UserIndex()
+        {
+            var medias = await _unitOfWork.Media.GetAllAsync();
+            var collections = await _unitOfWork.Collection.GetAllAsync();
+            return View(new MediaDto { Medias = medias, Collections = collections });
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Details(int MediaId)
         {
             var media = await _unitOfWork.Media.FirstOrDefaultAsync(media => media.Id == MediaId, property => property.Collection);
