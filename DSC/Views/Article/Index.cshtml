@@ -1,58 +1,41 @@
 ﻿@model DSC.Models.DTOs.ArticleDto
 
-<style>
-    .table-wrap {
-        margin-bottom: 600px; /* Add space between the table and footer */
-    }
-
-    .table-actions {
-        text-align: right; /* Align the action buttons to the right */
-    }
-</style>
 <!-- Add this code inside your section -->
 
 
-<div class="modal fade mt-5" id="addArticleModal" tabindex="-1" role="dialog" aria-labelledby="addArticleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="addArticleModal" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addArticleModalLabel">Add New Article</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
             </div>
+            <form asp-action="Create">
+
             <div class="modal-body">
-                <form asp-action="Create">
                     <input type="hidden" id="url" value="" asp-for="ImgUrl" />
                     <input type="hidden" id="publicId" value="" asp-for="PublicId" />
                     <div class="form-group">
-                        <label asp-for="Tittle">Article Tittle:</label>
+                        <label class="form-label" asp-for="Tittle">Article Title</label>
                         <input asp-for="Tittle" type="text" required class="form-control" id="articleTittle" name="Tittle" placeholder="Enter article name">
-                    </div>
-                  @*   <div class="form-group">
-                        <label asp-for="ImgUrl">ImgUrl:</label>
-                        <input asp-for="ImgUrl" type="text" required class="form-control" id="articleName" name="ImgUrl" placeholder="Enter article imgUrl">
-                    </div> *@
+                    </div>                
                     <div class="form-group">
-                        <label asp-for="Description">Description:</label>
+                        <label class="form-label" asp-for="Description">Description</label>
                         <textarea asp-for="Description" required class="form-control" id="articleName" name="Description" placeholder="Enter article Description"></textarea>
                     </div>
                     <div class="form-group">
-                        <label asp-for="ArticleType">Article Type:</label>
+                        <label class="form-label" asp-for="ArticleType">Article Type</label>
                         <select asp-for="ArticleType" id="articleType" class="form-control">
                             <option value="1">Article</option>
                             <option value="2">News</option>
                             <option value="3">Ads</option>
                         </select>
                     </div>
-@*                     <div class="form-group">
-                        <label asp-for="CategoryId">Category:</label>
-                        <select class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.Category, "Id", "Name"))">
-                            <option value="4">Select a category</option>
-                        </select>
-                    </div> *@
                     <div class="form-group">
-                        <label asp-for="CategoryId">Category:</label>
+                        <label class="form-label" asp-for="CategoryId">Category</label>
                         <select asp-for="CategoryId" id="CategoryId" class="form-control">
                             @foreach (var item in Model.Categories)
                             {
@@ -62,74 +45,79 @@
                         </select>
                     </div>
 
+                    <div class="form-group">
+                        <div class="row g-2">
+                            <div class="col-8 mb-0">
+                                <label for="emailWithTitle" class="form-label">File</label>
+                                <input type="file" onchange="enableButton('uploadButton')" required class="form-control" id="uploadedMedia" placeholder="Enter Media File">
 
-                    <div class="form-group row">
-                        <div class="col-12">
-                            <label>File :</label>
+                            </div>
+                            <div class="col-4 mb-0">
+                                <label for="" class="form-label text-white">.</label>
 
-                        </div>
-                        <div class="col-8">
-                            <input type="file" onchange="enableButton('uploadButton')" required class="form-control" id="uploadedMedia" placeholder="Enter Media File">
-
-                        </div>
-                        <div class="col-4">
-                            <button class="form-control btn " id="uploadButton" disabled
-                                    onclick="uploadImage();this.disabled=true; this.innerHTML='Uploading…';">
-                                upload
-                            </button>
+                                <button class="form-control btn " id="uploadButton" disabled
+                                        onclick="uploadImage();this.disabled=true; this.innerHTML='Uploading…';">
+                                    upload
+                                </button>
+                            </div>
                         </div>
                     </div>
-
 
                     <div id="displayMedia">
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" id="AddMediaButton" disabled />
-                    </div>
+                 
 
-                </form>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <input type="submit"  class="btn btn-primary" id="AddMediaButton" disabled />
+            </div>
+            </form>
 
         </div>
     </div>
 </div>
 
-<div class="modal fade mt-5" id="EditArticleModal" tabindex="-1" role="dialog" aria-labelledby="EditArticleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="EditArticleModal" tabindex="-1" role="dialog" aria-labelledby="EditArticleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="EditArticleModal">Edit Article</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
             </div>
-            <div class="modal-body">
             <form asp-action="Edit" method="post">
+
+            <div class="modal-body">
                     <input type="hidden" id="urlEdit" value="" asp-for="ImgUrl" />
                     <input type="hidden" id="publicIdEdit" value="" asp-for="PublicId" />
                 <input asp-for="Id" id="editId" value="" hidden />
                 <div class="form-group">
-                    <label asp-for="Tittle">Tittle:</label>
-                    <input asp-for="Tittle" required type="text" class="form-control" id="articleName" name="Tittle"  placeholder="Enter Tittle name">
+                    <label class="form-label"  asp-for="Tittle">Article Title</label>
+                        <input asp-for="Tittle" value="" required type="text" class="form-control" id="EarticleName" name="Tittle" placeholder="Enter Tittle name">
                 </div>
                
                 <div class="form-group">
-                    <label asp-for="Description">Description:</label>
-                        <textarea asp-for="Description" required class="form-control" id="articleDescription" name="Description" placeholder="Enter article Description"></textarea>
+                    <label class="form-label" asp-for="Description">Description</label>
+                    <textarea asp-for="Description" required class="form-control" id="myTextarea" name="Description"></textarea>
                 </div>
                 <div class="form-group">
-                    <label asp-for="ArticleType">Article Type:</label>
-                    <select asp-for="ArticleType" id="articleType" class="form-control">
-                        <option value="1">Article</option>
-                        <option value="2">News</option>
-                        <option value="3">Ads</option>
+                    <label class="form-label" asp-for="ArticleType">Article Type</label>
+                        <select asp-for="ArticleType" value="" id="EarticleType" class="form-control">
+                            @foreach (var item in Model.ArticleTypes)
+                            {
+                                <option value="@item">@item</option>
+
+                            }
+                       
                     </select>
                 </div>
                 <div class="form-group">
-                    <label asp-for="CategoryId">Category:</label>
-                    <select asp-for="CategoryId" id="CategoryId" class="form-control">
+                    <label class="form-label" asp-for="CategoryId">Category</label>
+                        <select asp-for="CategoryId" value="" id="ECategoryId" class="form-control">
                         @foreach (var item in Model.Categories)
                         {
                             <option value="@item.Id">@item.Name</option>
@@ -137,14 +125,14 @@
 
                     </select>
                 </div>
-
+                  
                     <div class="form-group row">
                         <div class="col-12">
-                            <label>File :</label>
+                            <label class="form-label">File</label>
 
                         </div>
                         <div class="col-8">
-                            <input type="file" onchange="enableButton('editUploadButton')" required class="form-control" id="editUploadedMedia" placeholder="Enter Media File">
+                            <input type="file" onchange="enableButton('editUploadButton')"  class="form-control" id="editUploadedMedia" placeholder="Enter Media File">
 
                         </div>
                         <div class="col-4">
@@ -158,38 +146,44 @@
 
                     <div id="editDisplayMedia">
                     </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" id="EditMediaButton" disabled />
-                </div>
-            </form>
+               
             </div>
+            <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-primary" id="EditMediaButton"  />
+            </div>
+            </form>
+
         </div>
     </div>
 </div>
 
 
-<div class="modal fade mt-5" id="DeleteArticleModal" tabindex="-1" role="dialog" aria-labelledby="DeleteArticleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="DeleteArticleModal" tabindex="-1" role="dialog" aria-labelledby="DeleteArticleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="DeleteArticleModalLabel">Delete Article</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+               
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
             </div>
+            <form asp-action="Delete">
+
             <div class="modal-body">
-                <form asp-action="Delete">
                     <input asp-for="Id" id="deleteId" hidden />
                     <div class="form-group">
                         <p>Are you Sure you want to Delete This article?</p>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  
+            </div>
+              <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <input type="submit" class="btn btn-primary" id="DeleteArticleButton" />
                     </div>
                 </form>
-            </div>
 
         </div>
     </div>
@@ -203,18 +197,27 @@
         <div class="row justify-content-center">
             <div class="col-md-6 text-center mb-5">
                 <h2 class="heading-section">Articles</h2>
-                <a class="btn btn-warning mt-3 p-3 text-white" data-toggle="modal" data-target="#addArticleModal">Create New Article</a>
+                
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
 
-                <div class="table-wrap">
-                    <table class="table table-hover">
-                        <thead class="thead-primary">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Articles</h5>
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addArticleModal">Create New Article</button>
+                    </div>
+                   
+                    <div class="table-responsive text-nowrap">
+                        <table class="table table-hover">
+                            <caption class="ms-4">
+                                List of Articles
+                            </caption>
+                        <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
+                                <th>Title</th>
                                 <th>Created At</th>
                                 <th class="table-actions ">Actions</th>
                             </tr>
@@ -229,12 +232,20 @@
                                     <td>@count</td>
                                     <td>@article.Tittle</td>
                                     <td>@article.CDate</td>
-                                    <td class="table-actions">
-                                        <a class="btn btn-primary text-white" data-toggle="modal" onclick="setIdEdit(@article.Id)" data-target="#EditArticleModal">Edit</a>
-                                        <a class="btn btn-danger text-white" data-toggle="modal" onclick="setIdDelete(@article.Id)" data-target="#DeleteArticleModal">Delete</a>
-                                        <a class="btn btn-warning text-white" asp-action="Details" asp-route-id="@article.Id">Details</a>
-                                       
-                                    </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" data-bs-toggle="modal" onclick="setIdEdit(@article.Id, '@article.Tittle', '@article.Description', '@article.ArticleType',@article.CategoryId, '@article.ImgUrl','@article.PublicId')" data-bs-target="#EditArticleModal"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                                    <a class="dropdown-item" data-bs-toggle="modal" onclick="setIdDelete(@article.Id)" data-bs-target="#DeleteArticleModal"><i class="bx bx-trash me-1"></i> Delete</a>
+                                                    <a class="dropdown-item" asp-action="Details" asp-route-id="@article.Id"><i class="bx bx-info-circle me-1"></i> Details</a>
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                   
                                 </tr>
                                 count++;
 
@@ -245,6 +256,8 @@
             </div>
         </div>
     </div>
+    </div>
+
 </section>
 <script>
     function enableButton(id) {
@@ -254,8 +267,29 @@
         button.disabled = false
         button.innerHTML = "Upload";
     }
-    function setIdEdit(id) {
+    function setIdEdit(id, name, description, type, categoryid, imageURL, imageId) {
+        console.log('type');
+        console.log(type);
+        console.log("categoryid");
+        console.log(categoryid);
+        console.log("imageURL");
+        console.log(imageURL);
+        console.log("imageId");
+        console.log(imageId);
+        console.log("id");
+        console.log(id);
+        console.log("name");
+        console.log(name);
+       
         document.getElementById("editId").value = id;
+        document.getElementById("EarticleName").value = name;
+        document.getElementById("ECategoryId").value = categoryid;
+        document.getElementById("urlEdit").value = imageURL;
+        document.getElementById("publicIdEdit").value = imageId;
+        document.getElementById("editDisplayMedia").innerHTML = `<img class="form-control" height="350px" src="${imageURL}" alt=""/> `;
+        document.getElementById("myTextarea").value =  description;
+
+        document.getElementById("EarticleType").value = type;
 
     }
     function setIdDelete(id) {
