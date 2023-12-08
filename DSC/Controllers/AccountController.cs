@@ -32,19 +32,15 @@ namespace DSC.Controllers
 			return View(new LoginDto());
 		}
 
-        [HttpGet]
-        public ActionResult UserLogin()
-        {
-            return View(new LoginDto());
-        }
+
 
         [HttpPost]
 		public async Task<IActionResult> Login(LoginDto loginDto)
 		{
 			if (!ModelState.IsValid) return View(loginDto);
 			var user = await _userManager.Users.SingleOrDefaultAsync(x => x.Email == loginDto.Email);
-			if (user == null) return View(loginDto);
-			var result = await _signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password, true, false);
+			if (user == null) return RedirectToAction("UserIndex", "Home");
+            var result = await _signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password, true, false);
 			if (!result.Succeeded) return View(loginDto);
 
 			return RedirectToAction("UserIndex", "Home");
@@ -86,7 +82,7 @@ namespace DSC.Controllers
               await _emailService.SendAsync(user.Email, "Confirm Your Email", confirmationLink);*/
 
 			await _signInManager.SignInAsync(user, true);
-			return RedirectToAction("Index", "Home");
+			return RedirectToAction("UserIndex", "Home");
 		}
 
 		[HttpGet("ConfirmEmail")]
